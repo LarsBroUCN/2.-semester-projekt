@@ -1,5 +1,5 @@
 package controller;
 
-public class BatchController {
+public class BatchController implements BatchControllerIF{
 
 }
