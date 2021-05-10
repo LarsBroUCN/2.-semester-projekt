@@ -13,9 +13,9 @@ public class GenerateListController {
 	private ArrayList<Notification> notificationList = new ArrayList<Notification>();
 	
 	public ArrayList<Notification> generateList(Status status) {
-		ArrayList<Batch> expiredList = (ArrayList<Batch>) ExpiredListController.generateExpiredList();
-		ArrayList<Batch> pendingList = (ArrayList<Batch>) PendingListController.generatePendingList();
-		ArrayList<Batch> discountList = (ArrayList<Batch>) DiscountListController.generateDiscountList();
+		ArrayList<Batch> expiredList = new ArrayList<Batch> (ExpiredListController.generateExpiredList());
+		ArrayList<Batch> pendingList = new ArrayList<Batch> (PendingListController.generatePendingList());
+		ArrayList<Batch> discountList = new ArrayList<Batch> (DiscountListController.generateDiscountList());
 		
 		//join batchLists
 		addToBatchList(expiredList);

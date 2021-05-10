@@ -1,14 +1,17 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Batch;
 
 public class PendingListController {
 
+	private static ArrayList<Batch> batchListPendingNotifications = new ArrayList<Batch>();
+	
 	public static List<Batch> generatePendingList() {
-		// TODO Auto-generated method stub	
-		return null;
+		batchListPendingNotifications = BatchController.generatePendingList();
+		return batchListPendingNotifications;
 	}
 
 }
