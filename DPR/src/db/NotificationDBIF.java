@@ -7,8 +7,7 @@ import model.Status;
 
 public interface NotificationDBIF {
 	
-	public List<Notification> getstate() throws DataAccessException;
-	
-	public void setStateExpired(int notificationID) throws DataAccessException;
+	public List<Notification> getstate() throws DataAccessException;	
+	public Notification setStateExpired(Notification notification) throws DataAccessException;
 
 }
