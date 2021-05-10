@@ -1,5 +1,5 @@
 package controller;
 
-public class ExpiredListController implements ExpiredListControllerIF{
+public class ExpiredListController {
 
 }

@@ -1,5 +1,5 @@
 package controller;
 
-public class GenerateListController implements GenerateListControllerIF{
+public class GenerateListController {
 
 }

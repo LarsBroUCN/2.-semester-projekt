@@ -1,5 +1,5 @@
 package controller;
 
-public class PendingListController implements PendingListControllerIF{
+public class PendingListController {
 
 }

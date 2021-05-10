@@ -1,5 +1,5 @@
 package controller;
 
-public class DiscountListController implements DiscountListControllerIF{
+public class DiscountListController {
 
 }
