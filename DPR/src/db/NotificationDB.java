@@ -5,18 +5,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import model.Notification;
 import model.Status;
 
 public class NotificationDB implements NotificationDBIF {
-	private static final String FINDSTATEQ = "select * from notifications where status = 'pending'";
-	private static final String UPDATEQ = "update notifications set discount =?, note =?, status=? where batchID_fk =?  ";
-	private PreparedStatement findState, update;
+	private static final String FINDSTATEQ = "select * from notifications where Status =?";
+	private PreparedStatement findState;
 	
 	public NotificationDB() throws DataAccessException {
 		try {
 			findState = DBConnection.getInstance().getConnection().prepareStatement(FINDSTATEQ);
-			update = DBConnection.getInstance().getConnection().prepareStatement(UPDATEQ);
 		} catch (SQLException e) {
 			throw new DataAccessException(e, "could not prepare statement");
 		}
@@ -26,31 +25,17 @@ public class NotificationDB implements NotificationDBIF {
 	//findall notifications
 	@Override
 	public List<Notification> getstate() throws DataAccessException {
-		try {		
-			ResultSet rs = findState.executeQuery();			
-			List<Notification> res = buildObjects(rs);			
+		try {
+			ResultSet rs = findState.executeQuery();
+			List<Notification> res = buildObjects(rs);
 			return res;			
 		} catch (Exception e) {
-			throw new DataAccessException(null, "Kunne ikke finde nogle notifikationer.");
+			throw new DataAccessException(null, "Kunne ikke finde nogle informationer, om værksteder osv.");
 		}
 	}
 
-	//update
-	@Override
-	public Notification setStateExpired(Notification notification) throws DataAccessException {
-		try {
-			update.setDouble(1, notification.getDiscount());
-			update.setString(2, notification.getNote());
-			update.setObject(3, (notification.getStatus()));
-			update.executeUpdate();
-		} catch (Exception e) {
-			throw new DataAccessException(null, "Kunne ikke opdatere status");
-		}
-		return notification;		
-	}
-	
-	private List<Notification> buildObjects(ResultSet rs) throws SQLException {	
-		List<Notification> res = new ArrayList<>();	
+	private List<Notification> buildObjects(ResultSet rs) throws SQLException {
+		List<Notification> res = new ArrayList<>();
 		while(rs.next()) {
 			res.add(buildObject(rs));
 		}
@@ -59,13 +44,20 @@ public class NotificationDB implements NotificationDBIF {
 
 
 	private Notification buildObject(ResultSet rs) throws SQLException {
-	
-		Notification n = new Notification(			
+		Notification n = new Notification(
 				rs.getString("note"),
-			 	rs.getDouble("discount"),
-			 Status.valueOf(rs.getString("status"))			
+			 	rs.getDouble(""),
+			 	Status.valueOf(rs.getString("status")) 
 				);
 		return n;
+	}
+
+
+	//update
+	@Override
+	public void setStateExpired(int notificationID) throws DataAccessException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
