@@ -24,7 +24,7 @@ public class GenerateListController {
 		
 		createNotificationListFromBatchList(batchList); //Find notifications from batchList and transfer to notificationList
 		
-		ArrayList<Notification> notificationListcopy = (ArrayList<Notification>) notificationList.clone(); // create copy of list notificationList
+		ArrayList<Notification> notificationListcopy = new ArrayList<Notification>(notificationList); // create copy of list notificationList
 		
 		return notificationListcopy; //return copy of list
 	}
