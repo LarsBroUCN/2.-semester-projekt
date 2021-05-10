@@ -13,9 +13,9 @@ public class GenerateListController {
 	private ArrayList<Notification> notificationList = new ArrayList<Notification>();
 	
 	public ArrayList<Notification> generateList(Status status) {
-		ArrayList<Batch> expiredList = (ArrayList<Batch>) ExpiredListController.generateExpiredList();
-		ArrayList<Batch> pendingList = (ArrayList<Batch>) PendingListController.generatePendingList();
-		ArrayList<Batch> discountList = (ArrayList<Batch>) DiscountListController.generateDiscountList();
+		ArrayList<Batch> expiredList = new ArrayList<Batch> (ExpiredListController.generateExpiredList());
+		ArrayList<Batch> pendingList = new ArrayList<Batch> (PendingListController.generatePendingList());
+		ArrayList<Batch> discountList = new ArrayList<Batch> (DiscountListController.generateDiscountList());
 		
 		//join batchLists
 		addToBatchList(expiredList);
@@ -24,7 +24,7 @@ public class GenerateListController {
 		
 		createNotificationListFromBatchList(batchList); //Find notifications from batchList and transfer to notificationList
 		
-		ArrayList<Notification> notificationListcopy = (ArrayList<Notification>) notificationList.clone(); // create copy of list notificationList
+		ArrayList<Notification> notificationListcopy = new ArrayList<Notification>(notificationList); // create copy of list notificationList
 		
 		return notificationListcopy; //return copy of list
 	}
