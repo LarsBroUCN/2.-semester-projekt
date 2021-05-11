@@ -3,12 +3,14 @@ package controller;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.List;
-
-import org.junit.jupiter.params.shadow.com.univocity.parsers.common.processor.AbstractRowProcessor;
-
 import db.BatchDB;
 import db.BatchDBIF;
+=======
+
+import db.BatchDB;
+>>>>>>> 73350d0bbfb9e33c9cca7881cead8c636d35ac8a
 import db.DataAccessException;
 import model.Batch;
 import model.Notification;
@@ -17,27 +19,41 @@ import model.Status;
 public class BatchController {
 	private  BatchDBIF batchDB = new BatchDB();
 	
+	Batch batch = null;
+	
+	
+	
 	public BatchController() throws DataAccessException, SQLException {
 		this.batchDB = new BatchDB();
 	}
 
+
+
 	private BatchDB bdb;
 	
-	public List<Batch> generateExpiredList() throws Exception {
-		List<Batch> res = new ArrayList<>();
+	
+	
+
+	public ArrayList<Batch> generateExpiredList() throws DataAccessException {
+
+		
+		for(Batch batch : bdb.findAllByStatus(null)) {
+			
+		}
+		Batch batch = null;// get batch 
 		LocalDate date = java.time.LocalDate.now(); // get time
-		for(Batch batch : getEPDList()) { // get batch 
-			if(batch.getExpirationDate().isAfter(date)) { // if batch expired
-				if(batch.hasNotification()) { //if batch has notification
-					batch.getNotification().setStatus(Status.expired); // set state to expired 
-					bdb.updateBatch(batch);// save batch with updated state expired in database	
-				} else {
-					throw new Exception("Batch ID:" + batch.getBatchID() + " Ingen notifikation");
-				}
+		if(batch.getExpirationDate().isAfter(date)) { // if batch expired
+			if(batch.hasNotification()) { //if batch has notification
+				
+				// batch.getNotification().setStatus(EXPIRED); // set state to expired 
+				// set state to expired in database
+				
+			} else {
+				// TODO ERROR missing Notification
 			}
 		}
-		res.addAll(findAllByStatus(Status.expired)); // get batches with state expired
-		return res;
+	//getBatchWithState(); // get batches with state expired
+		return null;
 	}
 	
 	public ArrayList<Batch> generateDiscountList() {
@@ -65,7 +81,7 @@ public class BatchController {
 				batch.setNotification(n);
 				
 				
-				findAllByStatus();
+				findByStatus();
 				
 				
 				//hvis dato har nået warningperiod oprettes en notifikation med status pending
@@ -81,22 +97,15 @@ public class BatchController {
 	
 	
 	
-	private List<Batch> findAllByStatus(Status state) throws DataAccessException {
-		return batchDB.findAllByStatus(state);
+	private Batch findByStatus(int id) {
+		
+		
+		return batchDB.findByStatus(id);
+		
 	}
-/*
+
 	public  List<Batch> findAll(){
 		return batchDB.findAll();		
 	}
-	*/
-	public List<Batch> getEPDList() throws DataAccessException{
-		List<Batch> epd = new ArrayList<>();
-		epd.addAll(findAllByStatus(Status.expired));
-		epd.addAll(findAllByStatus(Status.pending));
-		epd.addAll(findAllByStatus(Status.discount));
-		return epd;
-	}
-	
-}
 	
 
