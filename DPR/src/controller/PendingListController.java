@@ -1,16 +1,22 @@
 package controller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import db.DataAccessException;
 import model.Batch;
 
 public class PendingListController {
 
-	private static ArrayList<Batch> batchListPendingNotifications = new ArrayList<Batch>();
+	private ArrayList<Batch> batchListPendingNotifications = new ArrayList<Batch>();
+private BatchController bc;
 	
-	public static List<Batch> generatePendingList() {
-		batchListPendingNotifications = BatchController.generatePendingList();
+	public PendingListController() throws DataAccessException, SQLException {
+		bc = new BatchController();
+	}
+	public List<Batch> generatePendingList() throws DataAccessException {
+		batchListPendingNotifications = bc.generatePendingList();
 		return batchListPendingNotifications;
 	}
 
