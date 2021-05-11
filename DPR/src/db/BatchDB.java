@@ -1,7 +1,10 @@
 package db;
 
 import java.sql.PreparedStatement;
+<<<<<<< HEAD
 import java.sql.ResultSet;
+=======
+>>>>>>> c9775a4c3a24002cd5070abe4ae9e294ad27d30c
 import java.sql.SQLException;
 
 import model.Batch;
@@ -9,6 +12,7 @@ import model.Product;
 import model.Status;
 
 public class BatchDB implements BatchDBIF {
+<<<<<<< HEAD
 	
 	private final String SEARCH_BATCH_Q = "select * from batch where BatchID = ?";
 	private PreparedStatement searchBatch;
@@ -40,6 +44,14 @@ public class BatchDB implements BatchDBIF {
 			if(rs.getString(columnIndex).equals)
 		}
 		return null;
+=======
+	private static final String  FINDSTATUSQ = "    select notifications.batchid_fk, notifications.status from notifications\r\n"
+			+ " inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = ?";
+	private PreparedStatement findstatus;
+	
+	public BatchDB() throws SQLException {
+		findstatus = DBConnection.getInstance().getConnection().prepareStatement(FINDSTATUSQ);
+>>>>>>> c9775a4c3a24002cd5070abe4ae9e294ad27d30c
 	}
 	
 	
