@@ -11,12 +11,14 @@ import model.Status;
 
 public class GenerateListController {
 
+	
 	private ArrayList<Batch> batchList = new ArrayList<Batch>();
 	private ArrayList<Notification> notificationList = new ArrayList<Notification>();
 	private ExpiredListController Ectrl;
 	private PendingListController Pctrl;
 	private DiscountListController Dctrl;
 	
+
 	public GenerateListController() throws DataAccessException, SQLException {
 		Ectrl = new ExpiredListController();
 		Pctrl = new PendingListController();
@@ -27,6 +29,7 @@ public class GenerateListController {
 		ArrayList<Batch> expiredList = new ArrayList<Batch> (Ectrl.generateExpiredList());
 		ArrayList<Batch> pendingList = new ArrayList<Batch> (Pctrl.generatePendingList());
 		ArrayList<Batch> discountList = new ArrayList<Batch> (Dctrl.generateDiscountList());
+
 		
 		//join batchLists
 		addToBatchList(expiredList);
