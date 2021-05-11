@@ -24,13 +24,18 @@ public class test {
 		
 		
 		Statement s = con.createStatement();
-		ResultSet rs = s.executeQuery("select * from notifications where status = 'pending'");
+		//ResultSet rs = s.executeQuery("select * from notifications where status = 'pending'");
+		
+		ResultSet rs = s.executeQuery("select notifications.batchid_fk, notifications.status from notifications\r\n"
+				+ " inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = 'discount'");
+		
 		System.out.println(rs);
 		while(rs.next()) {
-		System.out.println("NotifikationsID: " + rs.getString(1) + " \n" + "Rabat: " + rs.getString(2) + 
-							" \n" + "Note: " + rs.getString(3) + " \n" + "Status: " + rs.getString(4) + 
-							" \n" + "BatchID: " + rs.getInt(5));
-		
+//		System.out.println("NotifikationsID: " + rs.getString(1) + " \n" + "Rabat: " + rs.getString(2) + 
+//							" \n" + "Note: " + rs.getString(3) + " \n" + "Status: " + rs.getString(4) + 
+//							" \n" + "BatchID: " + rs.getInt(5));
+//		
+		System.out.println("BatchID: " + rs.getString(1) + " \n" + "Status: " + rs.getString(2));
 		
 		}
 				
