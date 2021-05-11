@@ -1,16 +1,24 @@
 package controller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import db.DataAccessException;
 import model.Batch;
 
 public class ExpiredListController {
 
-	private static ArrayList<Batch> batchListExpiredNotifications = new ArrayList<Batch>();
+	private BatchController bc;
 	
-	public static List<Batch> generateExpiredList() {
-		batchListExpiredNotifications = BatchController.generateExpiredList();
+	public ExpiredListController() throws SQLException, DataAccessException {
+		bc = new BatchController();
+	}
+	
+	private ArrayList<Batch> batchListExpiredNotifications = new ArrayList<Batch>();
+	
+	public List<Batch> generateExpiredList() throws DataAccessException {
+		batchListExpiredNotifications = bc.generateExpiredList();
 		return batchListExpiredNotifications;
 	}
 	
