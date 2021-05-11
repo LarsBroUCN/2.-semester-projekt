@@ -15,7 +15,7 @@ public class DiscountListController {
 		bc = new BatchController();
 	}
 	
-	private ArrayList<Batch> batchListDiscountNotifications = new ArrayList<Batch>();
+	private List<Batch> batchListDiscountNotifications = new ArrayList<Batch>();
 	
 	public List<Batch> generateDiscountList() throws DataAccessException {
 
