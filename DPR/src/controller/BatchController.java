@@ -51,14 +51,14 @@ public class BatchController {
 			LocalDate date = batch.getExpirationDate().minusDays(batch.getWarningPeriod());  
 			if(today.isAfter(date) ) {
 				
-				Notification n = new Notification("Note", 0, Status.valueOf("pending"));
+				Notification n = new Notification("Note", 0, Status.PENDING);
 				batch.setNotification(n);
 				
 				
 				findAllByStatus();
 				
 				
-				//hvis dato har nået warningperiod oprettes en notifikation med status pending
+				//hvis dato har nï¿½et warningperiod oprettes en notifikation med status pending
 				//create en notifikation
 			}
 			//hent batches med status pending
@@ -84,8 +84,8 @@ public class BatchController {
 	public List<Batch> getEPDList() throws DataAccessException{
 		List<Batch> epd = new ArrayList<>();
 		epd.addAll(findAllByStatus(Status.DISCOUNT));
-		epd.addAll(findAllByStatus(Status.pending));
-		epd.addAll(findAllByStatus(Status.discount));
+		epd.addAll(findAllByStatus(Status.PENDING));
+		epd.addAll(findAllByStatus(Status.DISCARD));
 		return epd;
 	}
 	
