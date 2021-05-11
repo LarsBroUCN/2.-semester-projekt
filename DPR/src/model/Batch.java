@@ -69,5 +69,5 @@ public class Batch {
 	public void setNotification(Notification notification) {
 		this.notification = notification;
 	}
-		
+
 }
