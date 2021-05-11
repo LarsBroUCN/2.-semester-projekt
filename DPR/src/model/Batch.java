@@ -21,7 +21,16 @@ public class Batch {
 		this.product = product;
 		this.notification = notification;
 	}
-
+	
+	public boolean hasNotification() {
+        if(notification != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+	
+	
 	public int getBatchID() {
 		return batchID;
 	}
@@ -53,6 +62,8 @@ public class Batch {
 	public void setExpirationDate(LocalDate expirationDate) {
 		this.expirationDate = expirationDate;
 	}
+	
+	
 
 	public Product getProduct() {
 		return product;
@@ -69,5 +80,7 @@ public class Batch {
 	public void setNotification(Notification notification) {
 		this.notification = notification;
 	}
+
+	
 		
 }
