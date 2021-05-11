@@ -1,7 +1,7 @@
 package model;
 
 public enum Status {
-	pending("pending"), discount("discount"), expired("expired"), discard("discard"), complete("complete");
+	PENDING("PENDING"), DISCOUNT("DISCOUNT"), EXPIRED("EXPIRED"), DISCARD("DISCARD"), COMPLETE("COMPLETE");
 	
 	private String value;
 
