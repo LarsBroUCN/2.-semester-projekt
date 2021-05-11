@@ -22,13 +22,13 @@ public class BatchController {
 		this.batchDB = new BatchDB();
 	}
 
-	public static  ArrayList<Batch> generateExpiredList() {
+	public ArrayList<Batch> generateExpiredList() {
 		// TODO Auto-generated method stub
 		
 		return null;
 	}
 	
-	public static ArrayList<Batch> generateDiscountList() {
+	public ArrayList<Batch> generateDiscountList() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -38,7 +38,7 @@ public class BatchController {
 	
 	
 
-	public  ArrayList<Batch> generatePendingList() throws DataAccessException {
+	public ArrayList<Batch> generatePendingList() throws DataAccessException {
 		// TODO Auto-generated method stub
 		List<Batch> res = new ArrayList<>();
 		LocalDate today = LocalDate.now();
@@ -49,9 +49,9 @@ public class BatchController {
 			LocalDate date = batch.getExpirationDate().minusDays(batch.getWarningPeriod());  
 			if(today.isAfter(date) ) {
 				
-				Notification n = new Notification(null, 0, Status.valueOf("pending"));
+				Notification n = new Notification("Note", 0, Status.valueOf("pending"));
+				batch.setNotification(n);
 				
-				batch.newNotification();
 				
 				findByStatus();
 				
@@ -68,8 +68,10 @@ public class BatchController {
 	
 	
 	
-	private void findByStatus() {
-		// TODO Auto-generated method stub
+	private Batch findByStatus(int id) {
+		
+		
+		return batchDB.findByStatus(id);
 		
 	}
 
