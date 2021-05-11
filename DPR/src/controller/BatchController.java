@@ -26,7 +26,7 @@ public class BatchController {
 	public List<Batch> generateExpiredList() throws Exception {
 		List<Batch> res = new ArrayList<>();
 		LocalDate date = java.time.LocalDate.now(); // get time
-		for(Batch batch : getEPDList()) { // get batch 
+		for(Batch batch : getPDList()) { // get batch 
 			if(batch.getExpirationDate().isAfter(date)) { // if batch expired
 				if(batch.hasNotification()) { //if batch has notification
 					batch.getNotification().setStatus(Status.EXPIRED); // set state to expired 
@@ -81,11 +81,10 @@ public class BatchController {
 		return batchDB.findAll();		
 	}
 	*/
-	public List<Batch> getEPDList() throws DataAccessException{
+	public List<Batch> getPDList() throws DataAccessException{
 		List<Batch> epd = new ArrayList<>();
+		epd.addAll(findAllByStatus(Status.PENDING));
 		epd.addAll(findAllByStatus(Status.DISCOUNT));
-		epd.addAll(findAllByStatus(Status.pending));
-		epd.addAll(findAllByStatus(Status.discount));
 		return epd;
 	}
 	
