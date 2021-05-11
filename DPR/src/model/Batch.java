@@ -69,5 +69,13 @@ public class Batch {
 	public void setNotification(Notification notification) {
 		this.notification = notification;
 	}
+	
+	public boolean hasNotification() {
+		if(notification != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 		
 }
