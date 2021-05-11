@@ -1,5 +1,6 @@
 package db;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,13 +15,15 @@ import model.Status;
 public class BatchDB implements BatchDBIF {
 	private static final String FINDALLBYSTATUSQ = "select notifications.batchid_fk, notifications.status from notifications\r\n"
 			+ " inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = ?";
-	private static final String SEARCH_BATCH_Q = "select * from batch where BatchID = ?";
-	private PreparedStatement findAllByStatus, searchBatch;
+	private static final String SEARCH_BATCH_Q = "select * from batches where BatchID = ?";
+	private static final String UPDATE_BATCH_Q = "update batches set arrivaldate =?, expirationdate=?, warningperiod=?, barcode_fk=? where batchID=? ";
+	private PreparedStatement findAllByStatus, searchBatch, updateBatch;
 	private NotificationDB ndb;
 
 	public BatchDB() throws SQLException, DataAccessException {
 		findAllByStatus = DBConnection.getInstance().getConnection().prepareStatement(FINDALLBYSTATUSQ);
 		searchBatch = DBConnection.getInstance().getConnection().prepareStatement(SEARCH_BATCH_Q);
+		updateBatch = DBConnection.getInstance().getConnection().prepareStatement(UPDATE_BATCH_Q);
 		ndb = new NotificationDB();
 	}
 
@@ -46,6 +49,18 @@ public class BatchDB implements BatchDBIF {
 			return res;	
 		} catch (Exception e) {
 			throw new DataAccessException(null, "Kunne ikke finde nogle batches.");
+		}
+	}
+	
+	public void updateBatch(Batch batch) throws DataAccessException {
+		try {
+			updateBatch.setDate(1, Date.valueOf(batch.getArrivalDate()));
+			updateBatch.setDate(2, Date.valueOf(batch.getExpirationDate()));
+			updateBatch.setInt(3, batch.getWarningPeriod());
+			updateBatch.setString(4, batch.getProduct().getBarcode());
+			updateBatch.execute();
+		} catch (Exception e) {
+			throw new DataAccessException(e, "Kunne ikke opdatere batchen");
 		}
 	}
 	
