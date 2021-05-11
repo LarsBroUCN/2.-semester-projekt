@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import model.Batch;
 import model.Notification;
 import model.Product;
-import model.Status;
 
 public class BatchDB implements BatchDBIF {
 	private static final String  FINDSTATUSQ = "select notifications.batchid_fk, notifications.status from notifications\r\n"
