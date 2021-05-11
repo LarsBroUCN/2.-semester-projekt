@@ -85,11 +85,6 @@ public class BatchController {
 		List<Batch> epd = new ArrayList<>();
 		epd.addAll(findAllByStatus(Status.PENDING));
 		epd.addAll(findAllByStatus(Status.DISCOUNT));
-<<<<<<< HEAD
-=======
-		epd.addAll(findAllByStatus(Status.PENDING));
-		epd.addAll(findAllByStatus(Status.DISCARD));
->>>>>>> 6dc5a606aa51b14d8e79a6393dee6392b1be055e
 		return epd;
 	}
 	
