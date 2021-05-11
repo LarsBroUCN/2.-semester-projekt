@@ -17,13 +17,15 @@ public class BatchDB implements BatchDBIF {
 			+ " inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = ?";
 	private static final String SEARCH_BATCH_Q = "select * from batch where BatchID = ?";
 	private static final String UPDATE_BATCH_Q = "update batches set arrivaldate =?, expirationdate=?, warningperiod=?, barcode_fk=? where batchID=? ";
-	private PreparedStatement findAllByStatus, searchBatch, updateBatch;
+	private static final String FIND_ALL_NOT_NOTIFICATION = "select * from batches where batches.batchID not in (select Notifications.batchID_fk from notifications)";
+	private PreparedStatement findAllByStatus, searchBatch, updateBatch, findAllNotNotification;
 	private NotificationDB ndb;
 
 	public BatchDB() throws SQLException, DataAccessException {
 		findAllByStatus = DBConnection.getInstance().getConnection().prepareStatement(FINDSTATUSQ);
 		searchBatch = DBConnection.getInstance().getConnection().prepareStatement(SEARCH_BATCH_Q);
 		updateBatch = DBConnection.getInstance().getConnection().prepareStatement(UPDATE_BATCH_Q);
+		findAllNotNotification = DBConnection.getInstance().getConnection().prepareStatement(FIND_ALL_NOT_NOTIFICATION);
 		ndb = new NotificationDB();
 	}
 
@@ -51,6 +53,16 @@ public class BatchDB implements BatchDBIF {
             throw new DataAccessException(null, "Kunne ikke finde nogle batches.");
         }
 	}
+	
+	public List<Batch> findAllNotNotification() throws DataAccessException {
+        try {            
+            ResultSet rs = findAllNotNotification.executeQuery();
+            List<Batch> res = buildObjects(rs);
+            return res;
+        } catch (Exception e) {
+            throw new DataAccessException(null, "Kunne ikke finde nogle batches.");
+        }
+	}
 	   
 	   
 	    
@@ -61,6 +73,7 @@ public class BatchDB implements BatchDBIF {
 			updateBatch.setInt(3, batch.getWarningPeriod());
 			updateBatch.setString(4, batch.getProduct().getBarcode());
 			updateBatch.execute();
+			//Implement updating the notification
 		} catch (Exception e) {
 			throw new DataAccessException(e, "Kunne ikke opdatere batchen");
 		}
