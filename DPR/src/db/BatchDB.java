@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.Batch;
+import model.Notification;
 import model.Product;
 import model.Status;
 
@@ -12,10 +13,12 @@ public class BatchDB implements BatchDBIF {
 			+ " inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = ?";
 	private static final String SEARCH_BATCH_Q = "select * from batch where BatchID = ?";
 	private PreparedStatement findstatus, searchBatch;
+	private NotificationDB ndb;
 	
-	public BatchDB() throws SQLException {
+	public BatchDB() throws SQLException, DataAccessException {
 		findstatus = DBConnection.getInstance().getConnection().prepareStatement(FINDSTATUSQ);
         searchBatch = DBConnection.getInstance().getConnection().prepareStatement(SEARCH_BATCH_Q);
+        ndb = new NotificationDB();
 	}
 	
 	   public Batch searchBatch(int batchID) throws DataAccessException {
@@ -33,10 +36,12 @@ public class BatchDB implements BatchDBIF {
 	        }
 	   
 	   
-	    private Batch buildObject(ResultSet rs) throws SQLException {
+	    private Batch buildObject(ResultSet rs) throws SQLException, DataAccessException {
 	    		Batch b = new Batch(rs.getInt("batchID"), rs.getDate("arrivaldate").toLocalDate(), 
 	    				rs.getInt("warningperiod"), rs.getDate("expirationdate").toLocalDate(), 
 	    				new Product(null, rs.getString("barcode_fk"), 0, 0, null), null);
+	    		Notification n = ndb.findByBatchFK(rs.getInt("batchID"));
+	    		b.setNotification(n);
 	    		return b;
 
 	       }
