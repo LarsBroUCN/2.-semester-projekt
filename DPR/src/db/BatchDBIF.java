@@ -1,16 +1,12 @@
 package db;
 
+import java.util.List;
+
 import model.Batch;
 import model.Status;
 
 public interface BatchDBIF {
-	
-	public boolean checkIfNotificationExist() throws DataAccessException;
-	
-	public boolean checkBatchDate() throws DataAccessException;
-	
-	public Status getNotificationState() throws DataAccessException;
-	
-	public Batch getBatch() throws DataAccessException;
+	public Batch searchBatch(int batchID) throws DataAccessException;
+	public List<Batch> findAllByStatus(Status status) throws DataAccessException;
 
 }

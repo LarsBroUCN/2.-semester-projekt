@@ -11,12 +11,14 @@ import model.Status;
 public class NotificationDB implements NotificationDBIF {
 	private static final String FINDSTATEQ = "select * from notifications where status = 'pending'";
 	private static final String UPDATEQ = "update notifications set discount =?, note =?, status=? where batchID_fk =?  ";
-	private PreparedStatement findState, update;
+	private static final String FINDBYBATCHFKQ = "select * from notifications where batchID_fk = ?";
+	private PreparedStatement findState, update, findByBatchFK;
 	
 	public NotificationDB() throws DataAccessException {
 		try {
 			findState = DBConnection.getInstance().getConnection().prepareStatement(FINDSTATEQ);
 			update = DBConnection.getInstance().getConnection().prepareStatement(UPDATEQ);
+			findByBatchFK = DBConnection.getInstance().getConnection().prepareStatement(FINDBYBATCHFKQ);
 		} catch (SQLException e) {
 			throw new DataAccessException(e, "could not prepare statement");
 		}
@@ -47,6 +49,21 @@ public class NotificationDB implements NotificationDBIF {
 			throw new DataAccessException(null, "Kunne ikke opdatere status");
 		}
 		return notification;		
+	}
+	
+	public Notification findByBatchFK(int batchID) throws DataAccessException {
+		try {
+			findByBatchFK.setInt(1, batchID);
+			ResultSet rs = findByBatchFK.executeQuery();
+			Notification n = null;
+			if(rs.next()) {
+                n = buildObject(rs);
+            }
+			return n;
+					
+		} catch (Exception e) {
+			throw new DataAccessException(e, "Kunne ikke generere en notifikation");
+		}
 	}
 	
 	private List<Notification> buildObjects(ResultSet rs) throws SQLException {	
