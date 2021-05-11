@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.Batch;
+import model.Product;
 import model.Status;
 
 public class BatchDB implements BatchDBIF {
@@ -32,12 +33,11 @@ public class BatchDB implements BatchDBIF {
 	        }
 	   
 	   
-	    private Batch buildObject(ResultSet rs) throws DataAccessException {
-	   try {
-	           Batch b = null;
-	            if(rs.getString(columnIndex).equals) {
-	        }
-	        return null;
+	    private Batch buildObject(ResultSet rs) throws SQLException {
+	    		Batch b = new Batch(rs.getInt("batchID"), rs.getDate("arrivaldate").toLocalDate(), 
+	    				rs.getInt("warningperiod"), rs.getDate("expirationdate").toLocalDate(), 
+	    				new Product(null, rs.getString("barcode_fk"), 0, 0, null), null);
+	    		return b;
 
 	       }
 	
