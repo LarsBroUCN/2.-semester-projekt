@@ -9,7 +9,7 @@ import model.Status;
 public class BatchDB implements BatchDBIF {
 	private static final String  FINDSTATUSQ = "select notifications.batchid_fk, notifications.status from notifications\r\n"
 			+ " inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = ?";
-	private final String SEARCH_BATCH_Q = "select * from batch where BatchID = ?";
+	private static final String SEARCH_BATCH_Q = "select * from batch where BatchID = ?";
 	private PreparedStatement findstatus, searchBatch;
 	
 	public BatchDB() throws SQLException {
@@ -30,6 +30,8 @@ public class BatchDB implements BatchDBIF {
 	            throw new DataAccessException(e, "Could not retrieve data");
 	        }
 	        }
+	   
+	   
 	    private Batch buildObject(ResultSet rs) throws DataAccessException {
 	   try {
 	           Batch b = null;
