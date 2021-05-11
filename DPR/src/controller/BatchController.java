@@ -29,26 +29,16 @@ public class BatchController {
 		for(Batch batch : getEPDList()) { // get batch 
 			if(batch.getExpirationDate().isAfter(date)) { // if batch expired
 				if(batch.hasNotification()) { //if batch has notification
-					batch.getNotification().setStatus(Status.expired); // set state to expired 
+					batch.getNotification().setStatus(Status.EXPIRED); // set state to expired 
 					bdb.updateBatch(batch);// save batch with updated state expired in database	
 				} else {
 					throw new Exception("Batch ID:" + batch.getBatchID() + " Ingen notifikation");
 				}
 			}
 		}
-		res.addAll(findAllByStatus(Status.expired)); // get batches with state expired
+		res.addAll(findAllByStatus(Status.EXPIRED)); // get batches with state expired
 		return res;
 	}
-	
-	public ArrayList<Batch> generateDiscountList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
-	
-	
-	
 
 	public ArrayList<Batch> generatePendingList() throws DataAccessException {
 		// TODO Auto-generated method stub
@@ -78,7 +68,9 @@ public class BatchController {
 	}
 	
 
-	
+	public List<Batch> generateDiscountList() throws DataAccessException {
+		return (findAllByStatus(Status.DISCOUNT)); // get batches with state discount
+	}
 	
 	
 	private List<Batch> findAllByStatus(Status state) throws DataAccessException {
@@ -91,7 +83,7 @@ public class BatchController {
 	*/
 	public List<Batch> getEPDList() throws DataAccessException{
 		List<Batch> epd = new ArrayList<>();
-		epd.addAll(findAllByStatus(Status.expired));
+		epd.addAll(findAllByStatus(Status.DISCOUNT));
 		epd.addAll(findAllByStatus(Status.pending));
 		epd.addAll(findAllByStatus(Status.discount));
 		return epd;
