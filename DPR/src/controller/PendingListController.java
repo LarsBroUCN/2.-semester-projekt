@@ -10,7 +10,7 @@ import model.Batch;
 public class PendingListController {
 
 
-	private ArrayList<Batch> batchListPendingNotifications = new ArrayList<Batch>();
+	private List<Batch> batchListPendingNotifications = new ArrayList<Batch>();
     private BatchController bc;
     
 	public PendingListController() throws SQLException, DataAccessException {
@@ -18,7 +18,7 @@ public class PendingListController {
 	}
 	
 	
-	public List<Batch> generatePendingList() throws DataAccessException {
+	public List<Batch> generatePendingList() throws Exception {
 		batchListPendingNotifications = bc.generatePendingList();
 		return batchListPendingNotifications;
 	}

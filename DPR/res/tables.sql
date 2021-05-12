@@ -46,31 +46,35 @@ use dmab0920_1086231
  -- update notifications set discount = 30, note = '' , status = 'expired'  where batchid_fk = 5
 
 
-  select notifications.batchid_fk, notifications.status from notifications
- inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = 'discount'
+ -- select notifications.batchid_fk, notifications.status from notifications
+ --inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = 'discount'
 
-   select notifications.batchid_fk, notifications.status from notifications
- inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = 'pending'
+ --  select notifications.batchid_fk, notifications.status from notifications
+ --inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = 'pending'
 
-  select notifications.batchid_fk, notifications.status from notifications
- inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = 'complete'
+ -- select notifications.batchid_fk, notifications.status from notifications
+ --inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = 'complete'
 
-  select notifications.batchid_fk, notifications.status from notifications
- inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = 'discard'
+ -- select notifications.batchid_fk, notifications.status from notifications
+ --inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = 'discard'
 
-   select notifications.batchid_fk, notifications.status from notifications
- inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = 'expired'
+ --  select notifications.batchid_fk, notifications.status from notifications
+ --inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = 'expired'
 
- select * from Productgroups
- select * from products
+-- select batches.batchID where not.ba
+ --select * from batches where batches.batchID  in (select * from notifications where Notifications.batchID_fk ) = Batches.batchID
+
+ --select * from Productgroups
+ --select * from products
  select * from batches
- select * from notifications
- select * from batchsalespot
- select * from salespot
- select * from nodes
- select * from edges
+ --select * from notifications
+ --select * from batchsalespot
+ --select * from salespot
+ --select * from nodes
+ --select * from edges
 
-
+ --finder de batches som ikke er knyttet til notifikationer--
+ --select * from batches where batches.batchID not in (select Notifications.batchID_fk from notifications)
 
 
  -- create table Productgroups(
@@ -96,7 +100,6 @@ use dmab0920_1086231
 	--barcode_fk int not null,
 	--foreign key (barcode_fk) references Products(barcode)
  --)
-
 
 
  --create table Notifications(

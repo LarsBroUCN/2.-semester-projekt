@@ -45,7 +45,7 @@ public class BatchDB implements BatchDBIF {
 	
 	public List<Batch> findAllByStatus(Status status) throws DataAccessException {
         try {
-            findAllByStatus.setString(1, status.getValue());
+            findAllByStatus.setString(1, status.toString());
             ResultSet rs = findAllByStatus.executeQuery();
             List<Batch> res = buildObjects(rs);
             return res;
@@ -124,5 +124,3 @@ public class BatchDB implements BatchDBIF {
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
-
-

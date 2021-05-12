@@ -4,9 +4,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.jupiter.params.shadow.com.univocity.parsers.common.processor.AbstractRowProcessor;
-
 import db.BatchDB;
 import db.BatchDBIF;
 import db.DataAccessException;
@@ -16,16 +13,30 @@ import model.Status;
 
 public class BatchController {
 	private  BatchDBIF batchDB = new BatchDB();
+
+	private ArrayList<Batch> res;
+	Batch batch = null;
+	
+	
+
 	
 	public BatchController() throws DataAccessException, SQLException {
 		this.batchDB = new BatchDB();
+		res = new ArrayList<>();
 	}
 
 	private BatchDB bdb;
 	
+
+	
+	
+
+
+
 	public List<Batch> generateExpiredList() throws Exception {
 		List<Batch> res = new ArrayList<>();
 		LocalDate date = java.time.LocalDate.now(); // get time
+
 		for(Batch batch : getPDList()) { // get batch 
 			if(batch.getExpirationDate().isAfter(date)) { // if batch expired
 				if(batch.hasNotification()) { //if batch has notification
@@ -40,59 +51,80 @@ public class BatchController {
 		return res;
 	}
 
-	public ArrayList<Batch> generatePendingList() throws DataAccessException {
-		// TODO Auto-generated method stub
-		List<Batch> res = new ArrayList<>();
-		LocalDate today = LocalDate.now();
-		findAll(); 
-		if(!batch.hasNotification()) { //if batch has no notification
-			
+
+	
+	public List<Batch> generatePendingList() throws Exception {
+		List<Batch> res = new ArrayList<>(); //local arraylist
 		
-			LocalDate date = batch.getExpirationDate().minusDays(batch.getWarningPeriod());  
-			if(today.isAfter(date) ) {
-				
-				Notification n = new Notification("Note", 0, Status.PENDING);
-				batch.setNotification(n);
-				
-				
-				findAllByStatus();
-				
-				
-				//hvis dato har n�et warningperiod oprettes en notifikation med status pending
-				//create en notifikation
-			}
-			//hent batches med status pending
+
+		batchDB.findAllNotNotification(); //get batches with no notifications 
+			if(!batch.hasNotification()) { //checks if there is any notifications
+		 
+		LocalDate today = LocalDate.now(); //get the time
+		LocalDate date = batch.getExpirationDate().minusDays(batch.getWarningPeriod());  
+			if(today.isAfter(date) ) { //check if its time to create a notification
+	
+			Notification n = new Notification(null, 0, Status.PENDING); //create a notification with pending status
+			  batch.setNotification(n);
+						  	
+
+			  	res.add(batch);	//adds to local Arraylist			  	
+					  batchDB.updateBatch(batch); //opdate the database 
+			
         }
 		
-		return null;
+				}else {
+					throw new Exception("Batch ID: " + batch.getBatchID() + " Ingen notifikation");
+				}
+		
+   
+		res.addAll(findAllByStatus(Status.PENDING)); // get batches with state pending
+		return res; // returns the list
+	}
+
+	
+
+	
+	
+	
+	
+	
+	private List<Batch> findAllByStatus(Status state) throws DataAccessException {
+		return batchDB.findAllByStatus(state);
 	}
 	
+	
+	
+	public List<Batch> getPDList() throws DataAccessException{
+		List<Batch> epd = new ArrayList<>();
+		epd.addAll(findAllByStatus(Status.PENDING));
+		epd.addAll(findAllByStatus(Status.DISCOUNT));
+		return epd;
+	}
+
 
 	public List<Batch> generateDiscountList() throws DataAccessException {
 		return (findAllByStatus(Status.DISCOUNT)); // get batches with state discount
 	}
 	
 	
-	private List<Batch> findAllByStatus(Status state) throws DataAccessException {
-		return batchDB.findAllByStatus(state);
-	}
+	
 /*
 	public  List<Batch> findAll(){
 		return batchDB.findAll();		
+>>>>>>> 245c00a5ce4c013df5304fd3afdbbc2b549c7e44
 	}
 	*/
-	public List<Batch> getPDList() throws DataAccessException{
-		List<Batch> epd = new ArrayList<>();
-		epd.addAll(findAllByStatus(Status.PENDING));
-		epd.addAll(findAllByStatus(Status.DISCOUNT));
-<<<<<<< HEAD
-=======
-		epd.addAll(findAllByStatus(Status.PENDING));
-		epd.addAll(findAllByStatus(Status.DISCARD));
->>>>>>> 6dc5a606aa51b14d8e79a6393dee6392b1be055e
-		return epd;
-	}
+	
 	
 }
 	
+
+
+
+
+
+
+
+
 
