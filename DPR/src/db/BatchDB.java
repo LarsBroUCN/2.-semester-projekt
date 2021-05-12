@@ -45,7 +45,7 @@ public class BatchDB implements BatchDBIF {
 	
 	public List<Batch> findAllByStatus(Status status) throws DataAccessException {
         try {
-            findAllByStatus.setString(1, status.toString());
+            findAllByStatus.setString(1, status.getValue());
             ResultSet rs = findAllByStatus.executeQuery();
             List<Batch> res = buildObjects(rs);
             return res;
