@@ -15,7 +15,7 @@ import model.Status;
 public class BatchDB implements BatchDBIF {
 	private static final String  FINDSTATUSQ = "select notifications.batchid_fk, notifications.status from notifications\r\n"
 			+ " inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = ?";
-	private static final String SEARCH_BATCH_Q = "select * from batch where BatchID = ?";
+	private static final String SEARCH_BATCH_Q = "select * from batches where BatchID = ?";
 	private static final String UPDATE_BATCH_Q = "update batches set arrivaldate =?, expirationdate=?, warningperiod=?, barcode_fk=? where batchID=? ";
 	private static final String FIND_ALL_NOT_NOTIFICATION = "select * from batches where batches.batchID not in (select Notifications.batchID_fk from notifications)";
 	private PreparedStatement findAllByStatus, searchBatch, updateBatch, findAllNotNotification;
@@ -29,6 +29,7 @@ public class BatchDB implements BatchDBIF {
 		ndb = new NotificationDB();
 	}
 
+	@Override
 	public Batch searchBatch(int batchID) throws DataAccessException {
 		try {
 			searchBatch.setInt(1, batchID);
@@ -43,6 +44,7 @@ public class BatchDB implements BatchDBIF {
 		}
 	}
 	
+	@Override
 	public List<Batch> findAllByStatus(Status status) throws DataAccessException {
         try {
             findAllByStatus.setString(1, status.getValue());
@@ -54,6 +56,7 @@ public class BatchDB implements BatchDBIF {
         }
 	}
 	
+	@Override
 	public List<Batch> findAllNotNotification() throws DataAccessException {
         try {            
             ResultSet rs = findAllNotNotification.executeQuery();
@@ -65,7 +68,7 @@ public class BatchDB implements BatchDBIF {
 	}
 	   
 	   
-	    
+	@Override
 	public void updateBatch(Batch batch) throws DataAccessException {
 		try {
 			updateBatch.setDate(1, Date.valueOf(batch.getArrivalDate()));
@@ -73,7 +76,10 @@ public class BatchDB implements BatchDBIF {
 			updateBatch.setInt(3, batch.getWarningPeriod());
 			updateBatch.setString(4, batch.getProduct().getBarcode());
 			updateBatch.execute();
-			//Implement updating the notification
+			Notification notification = batch.getNotification();
+			if(notification != null) {
+				ndb.updateNotification(notification);
+			}
 		} catch (Exception e) {
 			throw new DataAccessException(e, "Kunne ikke opdatere batchen");
 		}

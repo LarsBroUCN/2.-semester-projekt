@@ -39,7 +39,7 @@ public class NotificationDB implements NotificationDBIF {
 
 	//update
 	@Override
-	public Notification setStateExpired(Notification notification) throws DataAccessException {
+	public Notification updateNotification(Notification notification) throws DataAccessException {
 		try {
 			update.setDouble(1, notification.getDiscount());
 			update.setString(2, notification.getNote());
@@ -65,6 +65,7 @@ public class NotificationDB implements NotificationDBIF {
 			throw new DataAccessException(e, "Kunne ikke generere en notifikation");
 		}
 	}
+	
 	
 	private List<Notification> buildObjects(ResultSet rs) throws SQLException {	
 		List<Notification> res = new ArrayList<>();	
