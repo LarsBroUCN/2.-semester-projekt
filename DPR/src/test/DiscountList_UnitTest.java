@@ -13,7 +13,7 @@ import controller.DiscountListController;
 import db.DataAccessException;
 import model.Batch;
 
-class discountList_UnitTest {
+class DiscountList_UnitTest {
 	DiscountListController dlc;
 
 	@BeforeEach

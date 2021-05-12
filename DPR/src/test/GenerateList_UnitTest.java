@@ -20,7 +20,7 @@ import db.DataAccessException;
 import model.Batch;
 import model.Notification;
 
-public class generateList_UnitTest {
+public class GenerateList_UnitTest {
 
 	GenerateListController generateListController;
 	
