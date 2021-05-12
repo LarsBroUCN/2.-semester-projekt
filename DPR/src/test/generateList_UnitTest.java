@@ -31,32 +31,32 @@ public class generateList_UnitTest {
 		batchController = new BatchController();
 	}
 	
-//	@Test
-//	public void generateList_Test() throws Exception {
-//		
-//		//Arrange
-//		generateListController.generateList();
-//		ArrayList<Notification> nl=	generateListController.getNotifikationCopyList();
-//		
-//		//Act
-//		
-//		//Assert
-//		assertNotNull("Should have been succesfull", nl);
-//	}	
-//	
-	
 	@Test
-	public void generateExpiredList_Test() throws Exception {
+	public void generateList_Test() throws Exception {
 		
 		//Arrange
-		List<Batch> batch =  batchController.generateExpiredList();
-		
+		generateListController.generateList();
+		ArrayList<Notification> nl=	generateListController.getNotifikationCopyList();
 		
 		//Act
 		
 		//Assert
-		assertNotNull("Should have been succesfull", batch);
+		assertNotNull("Should have been succesfull", nl);
 	}	
+	
+	
+//	@Test
+//	public void generateExpiredList_Test() throws Exception {
+//		
+//		//Arrange
+//		List<Batch> batch =  batchController.generateExpiredList();
+//		
+//		
+//		//Act
+//		
+//		//Assert
+//		assertNotNull("Should have been succesfull", batch);
+//	}	
 	
 	
 	@After

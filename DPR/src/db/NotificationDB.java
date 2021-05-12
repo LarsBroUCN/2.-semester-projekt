@@ -44,10 +44,9 @@ public class NotificationDB implements NotificationDBIF {
 			update.setDouble(1, notification.getDiscount());
 			update.setString(2, notification.getNote());
 			update.setObject(3, (notification.getStatus().toString()));
-
 			update.setInt(4, batchID);
-
 			update.execute();
+			
 		} catch (Exception e) {
 			throw new DataAccessException(null, "Kunne ikke opdatere status");
 		}
