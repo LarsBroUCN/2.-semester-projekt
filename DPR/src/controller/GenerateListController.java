@@ -25,7 +25,7 @@ public class GenerateListController {
 		Dctrl = new DiscountListController();
 	}
 	
-	public void generateList(Status status) throws Exception {
+	public void generateList() throws Exception {
 		ArrayList<Batch> expiredList = new ArrayList<Batch> (Ectrl.generateExpiredList());
 		ArrayList<Batch> pendingList = new ArrayList<Batch> (Pctrl.generatePendingList());
 		ArrayList<Batch> discountList = new ArrayList<Batch> (Dctrl.generateDiscountList());
@@ -37,6 +37,7 @@ public class GenerateListController {
 		addToBatchList(discountList);
 		
 		createNotificationListFromBatchList(batchList); //Find notifications from batchList and transfer to notificationList
+	
 	}
 	
 	private void createNotificationListFromBatchList(ArrayList<Batch> batches){
@@ -51,7 +52,7 @@ public class GenerateListController {
 		}
 	}
 	
-	private ArrayList<Notification> getNotifikationCopyList(){
+	public ArrayList<Notification> getNotifikationCopyList(){
 		ArrayList<Notification> notificationListcopy = new ArrayList<Notification>(notificationList); // create copy of list notificationList
 		
 		return notificationListcopy; //return copy of list

@@ -10,7 +10,7 @@ import model.Status;
 
 public class NotificationDB implements NotificationDBIF {
 	private static final String FINDSTATEQ = "select * from notifications where status = 'pending'";
-	private static final String UPDATEQ = "update notifications set discount =?, note =?, status=? where batchID_fk =?  ";
+	private static final String UPDATEQ = "update notifications set discount =?, note =?, status=?  where batchID_fk =?  ";
 	private static final String FINDBYBATCHFKQ = "select * from notifications where batchID_fk = ?";
 	private PreparedStatement findState, update, findByBatchFK;
 	
@@ -43,8 +43,8 @@ public class NotificationDB implements NotificationDBIF {
 		try {
 			update.setDouble(1, notification.getDiscount());
 			update.setString(2, notification.getNote());
-			update.setObject(3, (notification.getStatus()));
-			update.executeUpdate();
+			update.setObject(3, (notification.getStatus().toString()));
+			update.execute();
 		} catch (Exception e) {
 			throw new DataAccessException(null, "Kunne ikke opdatere status");
 		}

@@ -12,8 +12,9 @@ import model.Product;
 import model.Status;
 
 public class BatchDB implements BatchDBIF {
-	private static final String  FINDSTATUSQ = "select notifications.batchid_fk, notifications.status from notifications\r\n"
-			+ " inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = ?";
+	private static final String  FINDSTATUSQ = "select notifications.batchid_fk, notifications.status, batches.batchID, batches.arrivaldate, \r\n"
+			+ "batches.warningperiod, batches.expirationdate, batches.barcode_fk from notifications\r\n"
+			+ "inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = ?";
 	private static final String SEARCH_BATCH_Q = "select * from batches where BatchID = ?";
 	private static final String UPDATE_BATCH_Q = "update batches set arrivaldate =?, expirationdate=?, warningperiod=?, barcode_fk=? where batchID=? ";
 	private static final String FIND_ALL_NOT_NOTIFICATION = "select * from batches where batches.batchID not in (select Notifications.batchID_fk from notifications)";
@@ -46,6 +47,7 @@ public class BatchDB implements BatchDBIF {
 	@Override
 	public List<Batch> findAllByStatus(Status status) throws DataAccessException {
         try {
+        	System.out.println(status.toString());
             findAllByStatus.setString(1, status.toString());
             ResultSet rs = findAllByStatus.executeQuery();
             List<Batch> res = buildObjects(rs);
@@ -74,6 +76,7 @@ public class BatchDB implements BatchDBIF {
 			updateBatch.setDate(2, Date.valueOf(batch.getExpirationDate()));
 			updateBatch.setInt(3, batch.getWarningPeriod());
 			updateBatch.setString(4, batch.getProduct().getBarcode());
+			updateBatch.setInt(5, batch.getBatchID());
 			updateBatch.execute();
 			Notification notification = batch.getNotification();
 			if(notification != null) {
