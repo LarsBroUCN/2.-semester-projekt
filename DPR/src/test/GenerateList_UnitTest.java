@@ -1,12 +1,8 @@
 package test;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +10,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import controller.BatchController;
 import controller.GenerateListController;
 import db.DataAccessException;
-import model.Batch;
 import model.Notification;
 
 public class GenerateList_UnitTest {
