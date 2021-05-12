@@ -10,13 +10,14 @@ import model.Batch;
 public class ExpiredListController {
 
 
-	private  ArrayList<Batch> batchListExpiredNotifications = new ArrayList<Batch>();
+	private  List<Batch> batchListExpiredNotifications = new ArrayList<Batch>();
 	private BatchController bc;
 	
 	public ExpiredListController() throws DataAccessException, SQLException {
 		bc = new BatchController();
 	}
-	public List<Batch> generateExpiredList() throws DataAccessException {
+	
+	public List<Batch> generateExpiredList() throws Exception {
 
 		batchListExpiredNotifications = bc.generateExpiredList();
 		return batchListExpiredNotifications;

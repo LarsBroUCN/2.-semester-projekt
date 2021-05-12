@@ -25,7 +25,7 @@ public class GenerateListController {
 		Dctrl = new DiscountListController();
 	}
 	
-	public void generateList(Status status) throws DataAccessException {
+	public void generateList(Status status) throws Exception {
 		ArrayList<Batch> expiredList = new ArrayList<Batch> (Ectrl.generateExpiredList());
 		ArrayList<Batch> pendingList = new ArrayList<Batch> (Pctrl.generatePendingList());
 		ArrayList<Batch> discountList = new ArrayList<Batch> (Dctrl.generateDiscountList());
