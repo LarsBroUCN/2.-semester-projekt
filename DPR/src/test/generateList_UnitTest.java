@@ -23,28 +23,27 @@ import model.Notification;
 public class generateList_UnitTest {
 
 	GenerateListController generateListController;
-	BatchController batchController;
 	
 	@Before
 	public void setup() throws DataAccessException, SQLException {
 		generateListController = new GenerateListController();
-		batchController = new BatchController();
 	}
 	
 	@Test
 	public void generateList_Test() throws Exception {
 		
 		//Arrange
-		generateListController.generateList();
-		ArrayList<Notification> nl=	generateListController.getNotifikationCopyList();
+		List<Notification> nl = new ArrayList<>();
 		
 		//Act
+		generateListController.generateList();
+		nl=	generateListController.getNotifikationCopyList();
 		
 		//Assert
 		assertNotNull("Should have been succesfull", nl);
 	}	
 	
-	
+
 //	@Test
 //	public void generateExpiredList_Test() throws Exception {
 //		
@@ -55,7 +54,7 @@ public class generateList_UnitTest {
 //		//Act
 //		
 //		//Assert
-//		assertNotNull("Should have been succesfull", batch);
+//		assertNotNull("Should have been successful", batch);
 //	}	
 	
 	
