@@ -81,7 +81,7 @@ public class BatchDB implements BatchDBIF {
 			updateBatch.execute();
 			Notification notification = batch.getNotification();
 			if(notification != null) {
-				ndb.updateNotification(notification);
+				ndb.updateNotification(notification, batch.getBatchID());
 			}
 		} catch (Exception e) {
 			throw new DataAccessException(e, "Kunne ikke opdatere batchen");
