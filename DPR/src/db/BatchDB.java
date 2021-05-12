@@ -48,7 +48,7 @@ public class BatchDB implements BatchDBIF {
 	@Override
 	public List<Batch> findAllByStatus(Status status) throws DataAccessException {
         try {
-        	System.out.println(status.toString());
+
             findAllByStatus.setString(1, status.toString());
             ResultSet rs = findAllByStatus.executeQuery();
             List<Batch> res = buildObjects(rs);
@@ -77,6 +77,7 @@ public class BatchDB implements BatchDBIF {
 			updateBatch.setDate(2, Date.valueOf(batch.getExpirationDate()));
 			updateBatch.setInt(3, batch.getWarningPeriod());
 			updateBatch.setString(4, batch.getProduct().getBarcode());
+			updateBatch.setInt(5, batch.getBatchID());
 			updateBatch.execute();
 			Notification notification = batch.getNotification();
 			if(notification != null) {
