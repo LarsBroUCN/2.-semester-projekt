@@ -47,7 +47,7 @@ public class BatchDB implements BatchDBIF {
 	@Override
 	public List<Batch> findAllByStatus(Status status) throws DataAccessException {
         try {
-        	System.out.println(status.toString());
+
             findAllByStatus.setString(1, status.toString());
             ResultSet rs = findAllByStatus.executeQuery();
             List<Batch> res = buildObjects(rs);
@@ -80,7 +80,7 @@ public class BatchDB implements BatchDBIF {
 			updateBatch.execute();
 			Notification notification = batch.getNotification();
 			if(notification != null) {
-				ndb.updateNotification(notification);
+				ndb.updateNotification(notification, batch.getBatchID());
 			}
 		} catch (Exception e) {
 			throw new DataAccessException(e, "Kunne ikke opdatere batchen");
