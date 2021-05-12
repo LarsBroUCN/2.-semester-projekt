@@ -17,6 +17,7 @@ public class test {
 	
 	public static void main(String[] args) throws Exception {
 		
+		
 		//opretter forbindelsen (køres kun 1 gang pr program)
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		Connection con = DBConnection.getInstance().getConnection();
@@ -25,6 +26,21 @@ public class test {
 		
 		Statement s = con.createStatement();
 		//ResultSet rs = s.executeQuery("select * from notifications where status = 'pending'");
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		ResultSet rs = s.executeQuery("select notifications.batchid_fk, notifications.status from notifications\r\n"
 				+ " inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = 'discount'");

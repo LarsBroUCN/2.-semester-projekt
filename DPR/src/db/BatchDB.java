@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import model.Batch;
 import model.Notification;
 import model.Product;
@@ -101,7 +100,6 @@ public class BatchDB implements BatchDBIF {
 		Notification n = ndb.findByBatchFK(rs.getInt("batchID"));
 		b.setNotification(n);
 		return b;
-
 	}
 
 
