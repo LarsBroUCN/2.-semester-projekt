@@ -93,6 +93,7 @@ public class BatchController {
 		return batchDB.findAllByStatus(state);
 	}
 	
+
 	public List<Batch> getPDList() throws DataAccessException{
 		List<Batch> epd = new ArrayList<>();
 		epd.addAll(findAllByStatus(Status.PENDING));
