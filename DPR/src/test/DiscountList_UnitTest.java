@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import controller.DiscountListController;
 import db.DataAccessException;
 import model.Batch;
+import model.Status;
 
 class DiscountList_UnitTest {
 	DiscountListController dlc;
@@ -29,6 +31,15 @@ class DiscountList_UnitTest {
 		nl = dlc.generateDiscountList();
 		//Assert
 		assertNotNull("Should not be equal to null", nl);
+	}
+	
+	@Test
+	void checkIfStatusIsDiscount() throws DataAccessException {
+		List<Batch> nl = new ArrayList<>();
+		//Act
+		nl = dlc.generateDiscountList();
+		
+		assertTrue(nl.get(0).getNotification().getStatus() == Status.DISCOUNT);
 	}
 
 }
