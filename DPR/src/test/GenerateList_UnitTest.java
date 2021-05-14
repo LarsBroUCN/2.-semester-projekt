@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class GenerateList_UnitTest {
 		nl = generateListController.getBatchCopyList();
 		
 		//Assert
-		assertNotNull("Should have been succesfull", nl);
+		assertTrue("Should contain objects", nl.size() > 0);
 	}	
 	
 

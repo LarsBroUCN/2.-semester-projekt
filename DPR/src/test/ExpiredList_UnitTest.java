@@ -31,7 +31,7 @@ class ExpiredList_UnitTest {
 		//Act
 		nl = elc.generateExpiredList();
 		//Assert
-		assertTrue("Should contain objects", nl.size() > 0);;
+		assertTrue("Should contain objects", nl.size() > 0);
 	}
 	
 	@Test
