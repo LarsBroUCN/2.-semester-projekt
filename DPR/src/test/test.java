@@ -1,8 +1,8 @@
 package test;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.sql.Connection;
 
 import org.junit.Test;
 
@@ -18,7 +18,7 @@ public class test {
 	public static void main(String[] args) throws Exception {
 		
 		
-		//opretter forbindelsen (køres kun 1 gang pr program)
+		//opretter forbindelsen (kï¿½res kun 1 gang pr program)
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		Connection con = DBConnection.getInstance().getConnection();
 		System.out.println("success");

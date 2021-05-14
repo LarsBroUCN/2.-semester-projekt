@@ -291,7 +291,7 @@ public class Homepage extends JFrame {
 			
 				}					
 			}	
-			nl.clear();
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
