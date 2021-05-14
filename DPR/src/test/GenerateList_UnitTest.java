@@ -14,7 +14,7 @@ import controller.GenerateListController;
 import db.DataAccessException;
 import model.Batch;
 
-public class GenerateList_IntegrationTest {
+public class GenerateList_UnitTest {
 
 	GenerateListController generateListController;
 	
