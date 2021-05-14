@@ -13,7 +13,6 @@ import org.junit.Test;
 import controller.GenerateListController;
 import db.DataAccessException;
 import model.Batch;
-import model.Notification;
 
 public class GenerateList_UnitTest {
 
@@ -30,11 +29,11 @@ public class GenerateList_UnitTest {
 		//Arrange
 
 		generateListController.generateList();
-		List<Notification> nl = new ArrayList<>();
+		List<Batch> nl = new ArrayList<>();
 
 		
 		//Act
-		
+		nl = generateListController.getBatchCopyList();
 		
 		//Assert
 		assertNotNull("Should have been succesfull", nl);
