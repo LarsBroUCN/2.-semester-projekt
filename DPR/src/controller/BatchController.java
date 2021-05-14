@@ -16,6 +16,7 @@ import model.Status;
 public class BatchController {
 	private BatchDBIF batchDB;
 	private NotificationDBIF notificationDB;
+	private BatchDB bdb = new BatchDB();
 
 	private ArrayList<Batch> res;
 	Batch batch = null;
@@ -25,14 +26,12 @@ public class BatchController {
 		this.notificationDB = new NotificationDB();
 		res = new ArrayList<>();
 	}
-
-	private BatchDB bdb = new BatchDB();
+	
 
 	public List<Batch> generateExpiredList() throws Exception {
 		List<Batch> res = new ArrayList<>();
 		LocalDate date = LocalDate.now(); // get time
-		for (Batch batch : getPDList()) { // get batch
-			//batch.getExpirationDate().isAfter(date)
+		for (Batch batch : getPDList()) { // get batch			
 			if (date.isAfter(batch.getExpirationDate())) { // if batch expired
 				if (batch.hasNotification()) { // if batch has notification
 					batch.getNotification().setStatus(Status.EXPIRED); // set state to expired
@@ -55,10 +54,8 @@ public class BatchController {
 				LocalDate date = batch.getExpirationDate().minusDays(batch.getWarningPeriod());
 				if (today.isAfter(date)) { // check if its time to create a notification
 					Notification n = new Notification(null, 5, Status.PENDING); // create a notification with pending																				
-					batch.setNotification(n);
-					//res.add(batch); // adds to local Arraylist // gør vi også i bunden
-					notificationDB.insertNotification(n, batch.getBatchID());
-					//batchDB.updateBatch(batch); // opdate the database // hvorfor vil vi opdatere batch 
+					batch.setNotification(n);					
+					notificationDB.insertNotification(n, batch.getBatchID()); //creates a new notification in DB					
 				}
 			} else {
 				throw new Exception("Batch ID: " + batch.getBatchID() + " Ingen notifikation");
@@ -84,9 +81,6 @@ public class BatchController {
 		return (findAllByStatus(Status.DISCOUNT)); // get batches with state discount
 	}
 
-	/*
-	 * public List<Batch> findAll(){ return batchDB.findAll(); >>>>>>>
-	 * 245c00a5ce4c013df5304fd3afdbbc2b549c7e44 }
-	 */
+	
 
 }

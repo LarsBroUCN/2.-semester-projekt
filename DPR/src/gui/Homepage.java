@@ -269,12 +269,10 @@ public class Homepage extends JFrame {
 		try {
 			
 			model.setRowCount(0);
-			generateListController.generateList();
-			
+			generateListController.generateList();			
 			ArrayList<Batch> nl= generateListController.getBatchCopyList();		
 				
-			for(int i = 0 ; i< generateListController.getBatchCopyList().size(); i++) {				
-				
+			for(int i = 0 ; i< generateListController.getBatchCopyList().size(); i++) {					
 				Object rowData[] = new Object[6];				
 				rowData[0] = nl.get(i).getProduct().getProductName();
 				rowData[1] = nl.get(i).getExpirationDate();
@@ -283,20 +281,15 @@ public class Homepage extends JFrame {
 				rowData[4] = nl.get(i).getNotification().getDiscount();	
 				if(nl.get(i).getNotification().getStatus().equals(Status.PENDING)) {
 				rowData[5] = Boolean.TRUE;
-				model.addRow(rowData);
-				
+				model.addRow(rowData);				
 				}else {
 					//If the status is not pending we dont mark the checkbox
-				model.addRow(rowData);
-			
+				model.addRow(rowData);			
 				}					
-			}	
-		
-			
+			}				
 		} catch (Exception e) {
 			// TODO: handle exception
-		}
-		
+		}		
 	}
 	
 	private void findExpired() throws Exception {
@@ -317,8 +310,7 @@ public class Homepage extends JFrame {
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
-			}
-		
+			}		
 		}
 	}
 	
@@ -340,8 +332,7 @@ public class Homepage extends JFrame {
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
-			}
-			
+			}			
 		}
 	}
 	
@@ -361,12 +352,11 @@ public class Homepage extends JFrame {
 					rowData[5] = Boolean.TRUE;
 					model.addRow(rowData);
 				} catch (Exception e) {
-					// TODO: handle exception
+					
 				}
 			}
 		}
-	}
-	
+	}	
 }
 
 

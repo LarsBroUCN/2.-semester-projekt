@@ -30,8 +30,6 @@ public class GenerateList_UnitTest {
 		//Arrange
 
 		generateListController.generateList();
-		
-
 		List<Notification> nl = new ArrayList<>();
 
 		
