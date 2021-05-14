@@ -1,13 +1,11 @@
 use dmab0920_1086231
 
---drop table Productgroups
---drop table Products
---drop table Batches
---drop table Notifications
---drop table Nodes
---drop table Salespot
---drop table BatchSaleSpot
---drop table Edges
+
+
+
+
+
+
 
 
 --insert into Productgroups (groupname, groupWarningPeriod) values ('Kød', 12)
@@ -18,30 +16,37 @@ use dmab0920_1086231
 --insert into Productgroups (groupname, groupWarningPeriod) values ('Tekstil & sko', 12)
 --insert into Productgroups (groupname, groupWarningPeriod) values ('Bolig & fritid', 12)
 --insert into Productgroups (groupname, groupWarningPeriod) values ('Brød, bageri & mejeri', 12)
---insert into products (barcode, productName, productWarningperiod, price, groupname_fk ) values (122121, 'fisk', 12, 25, 'kød')
---insert into products (barcode, productName, productWarningperiod, price, groupname_fk ) values (11111, 'flåede tomater', 12, 25, 'Kolonial')
---insert into products (barcode, productName, productWarningperiod, price, groupname_fk ) values (22222, 'Helsekost', 12, 25, 'husholdning')
---insert into products (barcode, productName, productWarningperiod, price, groupname_fk ) values (33333, 'Helsekost', 12, 15, 'frugt & grønt')
---insert into products (barcode, productName, productWarningperiod, price, groupname_fk ) values (44444, 'korn,foderstoffer', 12, 50, 'Grovvarer')
---insert into products (barcode, productName, productWarningperiod, price, groupname_fk ) values (55555, 'Dame', 12, 50, 'Tekstil & sko')
---insert into products (barcode, productName, productWarningperiod, price, groupname_fk ) values (66666, 'Hus og Have', 12, 300, 'Bolig & fritid')
---insert into products (barcode, productName, productWarningperiod, price, groupname_fk ) values (77777, 'Hus og Have', 12, 10, 'Brød, bageri & mejeri')
---insert into batches (arrivaldate, expirationdate, warningperiod, barcode_fk ) values ('10/05/2021','10/05/2021',  12, 122121)
---insert into batches (arrivaldate, expirationdate, warningperiod, barcode_fk ) values ('10/05/2021','10/05/2021',  12, 11111)
---insert into batches (arrivaldate, expirationdate, warningperiod, barcode_fk ) values ('10/05/2021','10/05/2021',  12, 22222)
---insert into batches (arrivaldate, expirationdate, warningperiod, barcode_fk ) values ('10/05/2021','10/05/2021',  12, 33333)
---insert into batches (arrivaldate, expirationdate, warningperiod, barcode_fk ) values ('10/05/2021','10/05/2021',  12, 44444)
---insert into batches (arrivaldate, expirationdate, warningperiod, barcode_fk ) values ('10/05/2021','10/05/2021',  12, 55555)
---insert into batches (arrivaldate, expirationdate, warningperiod, barcode_fk ) values ('10/05/2021','10/05/2021',  12, 66666)
---insert into batches (arrivaldate, expirationdate, warningperiod, barcode_fk ) values ('10/05/2021','10/05/2021',  12, 77777)
---insert into notifications (discount, note, status, batchID_fk) values (25, '', 'pending', 1 )
---insert into notifications (discount, note, status, batchID_fk) values (10, '', 'pending', 4)
---insert into notifications (discount, note, status, batchID_fk) values (5, '', 'pending', 5)
---insert into notifications (discount, note, status, batchID_fk) values (5, '', 'pending', 6)
---insert into notifications (discount, note, status, batchID_fk) values (5, '', 'discount', 7)
---insert into notifications (discount, note, status, batchID_fk) values (5, '', 'complete', 8)
---insert into notifications (discount, note, status, batchID_fk) values (5, '', 'discard', 9)
---insert into notifications (discount, note, status, batchID_fk) values (5, '', 'expired', 10)
+--insert into products (barcode, productName, productWarningperiod, price, groupname_fk ) values (11111, 'fisk', 12, 25, 'Kød')
+--insert into products (barcode, productName, productWarningperiod, price, groupname_fk ) values (22222, 'flåede tomater', 12, 5, 'Kolonial')
+--insert into products (barcode, productName, productWarningperiod, price, groupname_fk ) values (33333, 'Dyremad og tilbehør', 12, 49, 'husholdning')
+--insert into products (barcode, productName, productWarningperiod, price, groupname_fk ) values (44444, 'Blomster', 12, 15, 'frugt & grønt')
+--insert into products (barcode, productName, productWarningperiod, price, groupname_fk ) values (55555, 'korn,foderstoffer', 12, 50, 'Grovvarer')
+--insert into products (barcode, productName, productWarningperiod, price, groupname_fk ) values (66666, 'Dame', 12, 99, 'Tekstil & sko')
+--insert into products (barcode, productName, productWarningperiod, price, groupname_fk ) values (77777, 'Hus og Have', 12, 300, 'Bolig & fritid')
+--insert into products (barcode, productName, productWarningperiod, price, groupname_fk ) values (88888, 'Ost', 12, 59, 'Brød, bageri & mejeri')
+--insert into batches (arrivaldate, expirationdate, warningperiod, barcode_fk ) values ('2021/05/13','2021/06/01',  12, 11111) --burde ikke lave en notifikation
+--insert into batches (arrivaldate, expirationdate, warningperiod, barcode_fk ) values ('2021/05/13','2021/06/01',  12, 44444)  --burde ikke lave en notifikation
+--insert into batches (arrivaldate, expirationdate, warningperiod, barcode_fk ) values ('2021/05/13','2021/05/24',  12, 22222)  --burde lave en notifikation og sætte status til pending
+--insert into batches (arrivaldate, expirationdate, warningperiod, barcode_fk ) values ('2021/05/13','2021/05/24',  12, 55555)	--burde lave en notifikation og sætte status til pending
+--insert into batches (arrivaldate, expirationdate, warningperiod, barcode_fk ) values ('2021/05/13','2021/05/20',  12, 66666)	--sættes til discount 
+--insert into batches (arrivaldate, expirationdate, warningperiod, barcode_fk ) values ('2021/05/13','2021/05/24',  12, 77777)	--sættes til complete 
+--insert into batches (arrivaldate, expirationdate, warningperiod, barcode_fk ) values ('2021/05/13','2021/05/14',  12, 33333)	--sættes til discard 
+--insert into batches (arrivaldate, expirationdate, warningperiod, barcode_fk ) values ('2021/05/13','2021/05/24',  12, 88888)	--sættes  til pending
+--yyyy-mm-dd
+
+--insert into notifications (discount, note, status, batchID_fk) values (5, '', 'DISCOUNT', 5)
+--insert into notifications (discount, note, status, batchID_fk) values (5, '', 'COMPLETE', 6)
+--insert into notifications (discount, note, status, batchID_fk) values (5, '', 'DISCARD', 7)
+--insert into notifications (discount, note, status, batchID_fk) values (25, '', 'PENDING', 8)
+
+--insert into notifications (discount, note, status, batchID_fk) values (25, '', 'PENDING', 8)
+--insert into notifications (discount, note, status, batchID_fk) values (10, '', 'PENDING', 1)
+--insert into notifications (discount, note, status, batchID_fk) values (5, '', 'PENDING', 3)
+--insert into notifications (discount, note, status, batchID_fk) values (5, '', 'PENDING', 5)
+--insert into notifications (discount, note, status, batchID_fk) values (5, '', 'DISCOUNT', 5)
+--insert into notifications (discount, note, status, batchID_fk) values (5, '', 'COMPLETE', 6)
+--insert into notifications (discount, note, status, batchID_fk) values (5, '', 'DISCARD', 7)
+--insert into notifications (discount, note, status, batchID_fk) values (5, '', 'EXPIRED', 4)
 
  -- update notifications set discount = 30, note = '' , status = 'expired'  where batchid_fk = 5
 
@@ -62,19 +67,46 @@ use dmab0920_1086231
  --inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = 'expired'
 
 -- select batches.batchID where not.ba
- --select * from batches where batches.batchID  in (select * from notifications where Notifications.batchID_fk ) = Batches.batchID
+ --select * from batches where batches.batchID  in (select * from notifications where Notifications.batchID_fk =batches.batchID ) 
+--select notifications.batchid_fk, notifications.status, batches.batchID, batches.arrivaldate, 
+--				batches.warningperiod, batches.expirationdate, batches.barcode_fk from notifications
+--				inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = 'PENDING'
 
- --select * from Productgroups
- --select * from products
+--select notifications.batchid_fk, notifications.status, batches.batchID, batches.arrivaldate, 
+--			 batches.warningperiod, batches.expirationdate, batches.barcode_fk from notifications
+--			 inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = 'EXPIRED'
+
+--select Products.barcode, Products.productName, Products.productWarningperiod, Products.price, Products.groupname_fk from Products
+--inner join batches on batches.barcode_fk = Products.barcode
+
+--select * from batches where barcode_fk = 122121
+
+--update batches set arrivaldate =?, expirationdate=?, warningperiod=?, barcode_fk=? where batchID=4
+ select * from Productgroups
+ select * from products
  select * from batches
- --select * from notifications
- --select * from batchsalespot
- --select * from salespot
- --select * from nodes
- --select * from edges
+ select * from notifications
+ select * from batchsalespot
+ select * from salespot
+ select * from nodes
+ select * from edges
+
+ --select * from Products where Products.barcode in (select * from batches where Batches.barcode_fk) 
 
  --finder de batches som ikke er knyttet til notifikationer--
  --select * from batches where batches.batchID not in (select Notifications.batchID_fk from notifications)
+
+
+
+--drop table BatchSaleSpot
+--drop table Salespot
+--drop table Edges
+--drop table Nodes
+--drop table Notifications
+--drop table Batches
+--drop table Products
+--drop table Productgroups
+
 
 
  -- create table Productgroups(
@@ -82,9 +114,8 @@ use dmab0920_1086231
  --   groupWarningPeriod int    
  --)
 
-
  --create table Products (
- --    barcode int primary key,
+ --    barcode varchar(64) primary key,
  --    productName varchar(64) not null,
  --    productWarningperiod int,
  --    price float not null,
@@ -97,7 +128,7 @@ use dmab0920_1086231
 	--arrivaldate date not null,
 	--expirationdate date not null,
 	--warningperiod int not null,
-	--barcode_fk int not null,
+	--barcode_fk varchar(64) not null,
 	--foreign key (barcode_fk) references Products(barcode)
  --)
 

@@ -13,7 +13,7 @@ public class GenerateListController {
 
 	
 	private ArrayList<Batch> batchList = new ArrayList<Batch>();
-	private ArrayList<Notification> notificationList = new ArrayList<Notification>();
+	//private ArrayList<Notification> notificationList = new ArrayList<Notification>();
 	private ExpiredListController Ectrl;
 	private PendingListController Pctrl;
 	private DiscountListController Dctrl;
@@ -25,37 +25,47 @@ public class GenerateListController {
 		Dctrl = new DiscountListController();
 	}
 	
-	public void generateList() throws Exception {
-		ArrayList<Batch> expiredList = new ArrayList<Batch> (Ectrl.generateExpiredList());
+	public void generateList() throws Exception {		
 		ArrayList<Batch> pendingList = new ArrayList<Batch> (Pctrl.generatePendingList());
 		ArrayList<Batch> discountList = new ArrayList<Batch> (Dctrl.generateDiscountList());
+		ArrayList<Batch> expiredList = new ArrayList<Batch> (Ectrl.generateExpiredList());
 
 		
 		//join batchLists
-		addToBatchList(expiredList);
+		
 		addToBatchList(pendingList);
 		addToBatchList(discountList);
-		
-		createNotificationListFromBatchList(batchList); //Find notifications from batchList and transfer to notificationList
-	
+		addToBatchList(expiredList);
 	}
-	
-	private void createNotificationListFromBatchList(ArrayList<Batch> batches){
-		for(Batch batch : batches) {
-			notificationList.add(batch.getNotification());
+		private void addToBatchList(ArrayList<Batch> batches) {
+			for(Batch batch : batches) {
+				batchList.add(batch);
+			}
 		}
-	}
-	
-	private void addToBatchList(ArrayList<Batch> batches) {
-		for(Batch batch : batches) {
-			batchList.add(batch);
-		}
-	}
-	
-	public ArrayList<Notification> getNotifikationCopyList(){
-		ArrayList<Notification> notificationListcopy = new ArrayList<Notification>(notificationList); // create copy of list notificationList
 		
-		return notificationListcopy; //return copy of list
+		public ArrayList<Batch> getBatchCopyList(){
+			ArrayList<Batch> batchListcopy = new ArrayList<Batch>(batchList); // create copy of list batchList
+			
+			return batchListcopy; //return copy of list
+		}		
+	//	createNotificationListFromBatchList(batchList); //Find notifications from batchList and transfer to notificationList	
 	}
 	
-}
+//	private void createNotificationListFromBatchList(ArrayList<Batch> batches){
+//		for(Batch batch : batches) {
+//			notificationList.add(batch.getNotification());
+//		}
+//	}
+//	
+	
+	
+//	public ArrayList<Notification> getNotifikationCopyList(){
+//		ArrayList<Notification> notificationListcopy = new ArrayList<Notification>(notificationList); // create copy of list notificationList
+//		
+//		return notificationListcopy; //return copy of list
+//	}
+	
+	
+	
+
+

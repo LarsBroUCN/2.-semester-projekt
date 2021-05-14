@@ -36,7 +36,7 @@ public class generateList_UnitTest {
 		
 		//Arrange
 		generateListController.generateList();
-		ArrayList<Notification> nl=	generateListController.getNotifikationCopyList();
+		ArrayList<Batch> nl=	generateListController.getBatchCopyList();
 		
 		//Act
 		

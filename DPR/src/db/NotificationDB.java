@@ -9,16 +9,18 @@ import model.Notification;
 import model.Status;
 
 public class NotificationDB implements NotificationDBIF {
-	private static final String FINDSTATEQ = "select * from notifications where status = 'pending'";
-	private static final String UPDATEQ = "update notifications set discount =?, note =?, status=?  where batchID_fk =?  ";
-	private static final String FINDBYBATCHFKQ = "select * from notifications where batchID_fk = ?";
-	private PreparedStatement findState, update, findByBatchFK;
+	private static final String FINDSTATEQ = "select * from notifications where status =?";
+	private static final String UPDATEQ = "update notifications set discount =?, note =?, status=? where batchID_fk =?";
+	private static final String FINDBYBATCHFKQ = "select * from notifications where batchID_fk =?";
+	private static final String insertQ = "insert into notifications (discount, note, status, batchID_fk) values (?, ?, ?, ?)";
+	private PreparedStatement findState, update, findByBatchFK, insert;
 	
 	public NotificationDB() throws DataAccessException {
 		try {
 			findState = DBConnection.getInstance().getConnection().prepareStatement(FINDSTATEQ);
 			update = DBConnection.getInstance().getConnection().prepareStatement(UPDATEQ);
 			findByBatchFK = DBConnection.getInstance().getConnection().prepareStatement(FINDBYBATCHFKQ);
+			insert = DBConnection.getInstance().getConnection().prepareStatement(insertQ);
 		} catch (SQLException e) {
 			throw new DataAccessException(e, "could not prepare statement");
 		}
@@ -36,7 +38,22 @@ public class NotificationDB implements NotificationDBIF {
 			throw new DataAccessException(null, "Kunne ikke finde nogle notifikationer.");
 		}
 	}
-
+	
+	@Override
+	public Notification insertNotification(Notification notification, int batchID) throws DataAccessException{
+		try {
+			insert.setDouble(1, notification.getDiscount());
+			insert.setString(2, notification.getNote());
+			insert.setObject(3, (notification.getStatus().toString()));
+			insert.setInt(4, batchID);
+			insert.execute();
+		} catch (Exception e) {
+			throw new DataAccessException(null, "Kunne ikke indsætte en ny notifikation");
+		}
+		return notification;
+	}
+	
+	
 	//update
 	@Override
 	public Notification updateNotification(Notification notification, int batchID) throws DataAccessException {

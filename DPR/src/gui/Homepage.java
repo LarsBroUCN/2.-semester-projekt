@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -11,25 +10,37 @@ import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import controller.GenerateListController;
+import model.Batch;
+import model.Notification;
+import model.Status;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.RowFilter;
 import java.awt.Dimension;
 import javax.swing.ScrollPaneConstants;
 import java.awt.Component;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class Homepage extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-	private JComboBox comboBox;
+	private GenerateListController generateListController;	
+	private JComboBox comboBox;	
+	private DefaultTableModel model;
 
 	/**
 	 * Launch the application.
@@ -102,17 +113,23 @@ public class Homepage extends JFrame {
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null, null},
+				{null, null, null, null, null, null},
 			},
 			new String[] {
-				"Produkt", "Udl\u00F8bsdato", "Status", "Rabat", "Valgt"
+				"Produkt", "Udl\u00F8bsdato", "barcode", "Status", "Rabat", "Valgt "
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				String.class, String.class, String.class, Double.class, Boolean.class
+				Object.class, Object.class, Object.class, Object.class, Object.class, Boolean.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
+			}
+			boolean[] columnEditables = new boolean[] {
+					false, false, false, false, true, true
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
 			}
 		});
 		table.getColumnModel().getColumn(0).setPreferredWidth(176);
@@ -133,7 +150,42 @@ public class Homepage extends JFrame {
 		JButton btnGenerateList = new JButton("Generere liste");
 		btnGenerateList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				int comboboxindex = comboBox.getSelectedIndex(); 
+				if(comboboxindex == 1) {
+					findAllLists();
+				} else if(comboboxindex == 2) {
+					try {
+						findDiscount();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}else if(comboboxindex == 3) {
+					try {
+						findExpired();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}else if (comboboxindex == 4) {
+					try {
+						findPending();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
 			
+				
+//				RowFilter<GenerateListTableModel, Object> rf = RowFilter.regexFilter(comboBox.getSelectedItem().toString()	, 0);
+//				sorter = new TableRowSorter<GenerateListTableModel>(generateListTableModel); 
+//				sorter.setRowFilter(rf);
+//			
+//				table.setRowSorter(sorter);
+//				//String value = String.valueOf(comboBox.getSelectedIndex());
+//				
+//				findList();
 			}
 		});
 		btnGenerateList.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -197,5 +249,124 @@ public class Homepage extends JFrame {
 		);
 		panel_1.setLayout(gl_panel_1);
 		contentPane.setLayout(gl_contentPane);
+		
+		init();
 	}
+
+	private void init() {
+		try {
+			this.generateListController = new GenerateListController();			
+			model = (DefaultTableModel) table.getModel();
+		} catch (Exception e) {
+			JOptionPane.showInternalMessageDialog(null, "Problem finding lists " + e.getMessage());
+		}
+		//findList();
+		
+	}
+
+	private void findAllLists() {
+		
+		try {
+			
+			model.setRowCount(0);
+			generateListController.generateList();
+			
+			ArrayList<Batch> nl= generateListController.getBatchCopyList();		
+				
+			for(int i = 0 ; i< generateListController.getBatchCopyList().size(); i++) {				
+				
+				Object rowData[] = new Object[6];				
+				rowData[0] = nl.get(i).getProduct().getProductName();
+				rowData[1] = nl.get(i).getExpirationDate();
+				rowData[2] = nl.get(i).getProduct().getBarcode();
+				rowData[3] = nl.get(i).getNotification().getStatus();
+				rowData[4] = nl.get(i).getNotification().getDiscount();	
+				if(nl.get(i).getNotification().getStatus().equals(Status.PENDING)) {
+				rowData[5] = Boolean.TRUE;
+				model.addRow(rowData);
+				
+				}else {
+					//If the status is not pending we dont mark the checkbox
+				model.addRow(rowData);
+			
+				}					
+			}	
+			nl.clear();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+	
+	private void findExpired() throws Exception {
+		generateListController.generateList();
+		ArrayList<Batch> nl= generateListController.getBatchCopyList();		
+		for(int i = 0 ; i< nl.size(); i++) {
+			if(nl.get(i).getNotification().getStatus().equals(Status.EXPIRED)) {
+				try {
+					model.setRowCount(0);
+					Object rowData[] = new Object[6];
+					rowData[0] = nl.get(i).getProduct().getProductName();
+					rowData[1] = nl.get(i).getExpirationDate();
+					rowData[2] = nl.get(i).getProduct().getBarcode();
+					rowData[3] = nl.get(i).getNotification().getStatus();
+					rowData[4] = nl.get(i).getNotification().getDiscount();	
+					rowData[5] = Boolean.FALSE;
+					model.addRow(rowData);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
+		}
+	}
+	
+	private void findDiscount() throws Exception {
+		generateListController.generateList();
+		ArrayList<Batch> nl= generateListController.getBatchCopyList();		
+		for(int i = 0 ; i< nl.size(); i++) {
+			if(nl.get(i).getNotification().getStatus().equals(Status.DISCOUNT)) {
+				try {
+					model.setRowCount(0);
+					Object rowData[] = new Object[6];
+					rowData[0] = nl.get(i).getProduct().getProductName();
+					rowData[1] = nl.get(i).getExpirationDate();
+					rowData[2] = nl.get(i).getProduct().getBarcode();
+					rowData[3] = nl.get(i).getNotification().getStatus();
+					rowData[4] = nl.get(i).getNotification().getDiscount();	
+					rowData[5] = Boolean.FALSE;
+					model.addRow(rowData);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
+		}
+	}
+	
+	private void findPending() throws Exception {
+		generateListController.generateList();
+		ArrayList<Batch> nl= generateListController.getBatchCopyList();		
+		for(int i = 0 ; i< nl.size(); i++) {
+			if(nl.get(i).getNotification().getStatus().equals(Status.PENDING)) {
+				try {
+					model.setRowCount(0);
+					Object rowData[] = new Object[6];
+					rowData[0] = nl.get(i).getProduct().getProductName();
+					rowData[1] = nl.get(i).getExpirationDate();
+					rowData[2] = nl.get(i).getProduct().getBarcode();
+					rowData[3] = nl.get(i).getNotification().getStatus();
+					rowData[4] = nl.get(i).getNotification().getDiscount();	
+					rowData[5] = Boolean.TRUE;
+					model.addRow(rowData);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
+		}
+	}
+	
 }
+
+
+
+
+

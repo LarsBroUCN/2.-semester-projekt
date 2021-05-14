@@ -20,6 +20,7 @@ public class BatchDB implements BatchDBIF {
 	private static final String FIND_ALL_NOT_NOTIFICATION = "select * from batches where batches.batchID not in (select Notifications.batchID_fk from notifications)";
 	private PreparedStatement findAllByStatus, searchBatch, updateBatch, findAllNotNotification;
 	private NotificationDB ndb;
+	private ProductDB pdb;
 
 	public BatchDB() throws SQLException, DataAccessException {
 		findAllByStatus = DBConnection.getInstance().getConnection().prepareStatement(FINDSTATUSQ);
@@ -27,6 +28,7 @@ public class BatchDB implements BatchDBIF {
 		updateBatch = DBConnection.getInstance().getConnection().prepareStatement(UPDATE_BATCH_Q);
 		findAllNotNotification = DBConnection.getInstance().getConnection().prepareStatement(FIND_ALL_NOT_NOTIFICATION);
 		ndb = new NotificationDB();
+		pdb = new ProductDB();
 	}
 
 	@Override
@@ -100,8 +102,11 @@ public class BatchDB implements BatchDBIF {
 		Batch b = new Batch(rs.getInt("batchID"), rs.getDate("arrivaldate").toLocalDate(), rs.getInt("warningperiod"),
 				rs.getDate("expirationdate").toLocalDate(), new Product(null, rs.getString("barcode_fk"), 0, 0, null),
 				null);
+		Product p = pdb.findByBarcodeFK(rs.getString("barcode_fk"));
+		b.setProduct(p);
 		Notification n = ndb.findByBatchFK(rs.getInt("batchID"));
 		b.setNotification(n);
+	
 		return b;
 	}
 
