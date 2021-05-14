@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import controller.PendingListController;
 import db.DataAccessException;
 import model.Batch;
+import model.Status;
 
 class PendingList__UnitTest {
 	PendingListController plc;
@@ -29,5 +31,14 @@ class PendingList__UnitTest {
 		nl = plc.generatePendingList();
 		//Assert
 		assertNotNull("Should not be equal to null", nl);
+	}
+	
+	@Test
+	void checkIfStatusIsPending() throws Exception {
+		List<Batch> nl = new ArrayList<>();
+		//Act
+		nl = plc.generatePendingList();
+		
+		assertTrue(nl.get(0).getNotification().getStatus() == Status.PENDING);
 	}
 }
