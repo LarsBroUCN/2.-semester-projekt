@@ -30,7 +30,7 @@ class PendingList__UnitTest {
 		//Act
 		nl = plc.generatePendingList();
 		//Assert
-		assertNotNull("Should not be equal to null", nl);
+		assertTrue("Should contain objects", nl.size() > 0);;
 	}
 	
 	@Test

@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.SQLException;
@@ -35,7 +36,7 @@ class BatchCtrl_UnitTest {
 		// Act
 		bl = bc.generateExpiredList();
 		// Assert
-		assertNotNull("Should not be equal to null", bl);
+		assertTrue("Should contain objects", bl.size() > 0);;
 	}
 
 	@Test
@@ -47,7 +48,7 @@ class BatchCtrl_UnitTest {
 		// Act
 		bl = bc.generateDiscountList();
 		// Assert
-		assertNotNull("Should not be equal to null", bl);
+		assertTrue("Should contain objects", bl.size() > 0);;
 	}
 	
 	@Test
@@ -59,7 +60,7 @@ class BatchCtrl_UnitTest {
 		// Act
 		bl = bc.generatePendingList();
 		// Assert
-		assertNotNull("Should not be equal to null", bl);
+		assertTrue("Should contain objects", bl.size() > 0);;
 	}
 	
 	// PDList should be equal to the combination of the pendingList and discountList
