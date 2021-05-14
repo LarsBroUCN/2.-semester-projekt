@@ -257,6 +257,7 @@ public class Homepage extends JFrame {
 		try {
 			this.generateListController = new GenerateListController();			
 			model = (DefaultTableModel) table.getModel();
+			table.setAutoCreateRowSorter(true);
 		} catch (Exception e) {
 			JOptionPane.showInternalMessageDialog(null, "Problem finding lists " + e.getMessage());
 		}
