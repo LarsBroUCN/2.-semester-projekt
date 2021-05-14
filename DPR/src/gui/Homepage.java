@@ -291,6 +291,7 @@ public class Homepage extends JFrame {
 			
 				}					
 			}	
+		
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -317,6 +318,7 @@ public class Homepage extends JFrame {
 					// TODO: handle exception
 				}
 			}
+		
 		}
 	}
 	
@@ -339,6 +341,7 @@ public class Homepage extends JFrame {
 					// TODO: handle exception
 				}
 			}
+			
 		}
 	}
 	
