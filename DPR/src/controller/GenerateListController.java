@@ -27,16 +27,16 @@ public class GenerateListController {
 	
 	public void generateList() throws Exception {		
 		batchList.clear();
+		ArrayList<Batch> expiredList = new ArrayList<Batch> (Ectrl.generateExpiredList());
 		ArrayList<Batch> pendingList = new ArrayList<Batch> (Pctrl.generatePendingList());
 		ArrayList<Batch> discountList = new ArrayList<Batch> (Dctrl.generateDiscountList());
-		ArrayList<Batch> expiredList = new ArrayList<Batch> (Ectrl.generateExpiredList());
 
 		
 		//join batchLists
-		
+		addToBatchList(expiredList);
 		addToBatchList(pendingList);
 		addToBatchList(discountList);
-		addToBatchList(expiredList);
+		
 		
 		
 		
