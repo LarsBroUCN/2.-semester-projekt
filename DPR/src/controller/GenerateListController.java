@@ -34,10 +34,8 @@ public class GenerateListController {
 		
 		//join batchLists
 		addToBatchList(expiredList);
-		addToBatchList(pendingList);
 		addToBatchList(discountList);
-		
-		
+		addToBatchList(pendingList);
 		
 		
 	}
