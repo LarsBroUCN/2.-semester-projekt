@@ -248,7 +248,7 @@ public class Homeview extends JFrame {
 			}
 		});
 		comboBox.setModel(
-				new DefaultComboBoxModel<String>(new String[] {"Samlet liste", "Rabat", "Udløbet", "AdvarselsPeriode"}));
+				new DefaultComboBoxModel<String>(new String[] {"Samlet liste", "Rabat", "Udløbet", "Advarsels Periode"}));
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -401,7 +401,6 @@ public class Homeview extends JFrame {
 			try {
 				this.glc = new GenerateListController();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			btm = new BatchTableModel();
