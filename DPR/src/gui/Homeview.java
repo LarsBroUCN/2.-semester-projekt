@@ -326,7 +326,7 @@ public class Homeview extends JFrame {
 		gbc_btnArchive.gridy = 1;
 		panel_4.add(btnArchive, gbc_btnArchive);
 
-		JButton btnDiscount = new JButton("S\\u00E6t discount");
+		JButton btnDiscount = new JButton("S\u00E6t discount");
 		GridBagConstraints gbc_btnDiscount = new GridBagConstraints();
 		gbc_btnDiscount.insets = new Insets(0, 0, 0, 5);
 		gbc_btnDiscount.gridx = 12;
