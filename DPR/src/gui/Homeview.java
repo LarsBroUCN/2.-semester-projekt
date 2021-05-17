@@ -402,7 +402,7 @@ public class Homeview extends JFrame {
 				this.glc = new GenerateListController();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				JOptionPane.showMessageDialog(null, "Could not connect to DB");
+				e.printStackTrace();
 			}
 			btm = new BatchTableModel();
 			sorter = new TableRowSorter<>(btm);
@@ -460,7 +460,7 @@ public class Homeview extends JFrame {
 				lblTimeOfEdit.setText("ingen");
 			}
 		} catch (Exception e) {
-			// TODO Change online to false
+			// Change online to false
 			lblStatus.setText("falsk");
 		}
 
