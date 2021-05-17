@@ -411,7 +411,7 @@ public class Homeview extends JFrame {
 			table.setDefaultRenderer(String.class, new BatchTableCellRenderer());
 			table.getTableHeader().setReorderingAllowed(false);
 
-		} catch (DataAccessException e) {
+		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Problem finding lists " + e.getMessage());
 		}
 
