@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.hamcrest.core.Is;
+
 import model.Batch;
 import model.Notification;
 import model.Product;
@@ -81,8 +84,9 @@ public class BatchDB implements BatchDBIF {
 			updateBatch.setInt(5, batch.getBatchID());
 			updateBatch.execute();
 			Notification notification = batch.getNotification();
-		
-				ndb.updateNotification(notification, batch.getBatchID());
+			
+			if(notification.get)
+			ndb.updateNotification(notification, batch.getBatchID());
 		
 		} catch (Exception e) {
 			throw new DataAccessException(e, "Kunne ikke opdatere batchen");

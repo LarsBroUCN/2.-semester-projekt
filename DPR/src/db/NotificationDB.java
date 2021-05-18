@@ -48,7 +48,7 @@ public class NotificationDB implements NotificationDBIF {
 			insert.setInt(4, batchID);
 			insert.execute();
 		} catch (Exception e) {
-			throw new DataAccessException(null, "Kunne ikke indsætte en ny notifikation");
+			throw new DataAccessException(null, "Kunne ikke indsï¿½tte en ny notifikation");
 		}
 		return notification;
 	}
@@ -97,7 +97,8 @@ public class NotificationDB implements NotificationDBIF {
 
 	private Notification buildObject(ResultSet rs) throws SQLException {
 	
-		Notification n = new Notification(			
+		Notification n = new Notification(
+				rs.getInt("notificationID"),
 				rs.getString("note"),
 			 	rs.getDouble("discount"),
 			 Status.valueOf(rs.getString("status"))			
