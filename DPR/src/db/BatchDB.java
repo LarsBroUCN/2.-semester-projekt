@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hamcrest.core.Is;
-
 import model.Batch;
 import model.Notification;
 import model.Product;
