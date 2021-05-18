@@ -40,7 +40,7 @@ public class NotificationDB implements NotificationDBIF {
 	}
 	
 	@Override
-	public Notification insertNotification(Notification notification, int batchID) throws DataAccessException{
+	public void insertNotification(Notification notification, int batchID) throws DataAccessException{
 		try {
 			insert.setDouble(1, notification.getDiscount());
 			insert.setString(2, notification.getNote());
@@ -50,13 +50,12 @@ public class NotificationDB implements NotificationDBIF {
 		} catch (Exception e) {
 			throw new DataAccessException(null, "Kunne ikke inds�tte en ny notifikation");
 		}
-		return notification;
 	}
 	
 	
 	//update
 	@Override
-	public Notification updateNotification(Notification notification, int batchID) throws DataAccessException {
+	public void updateNotification(Notification notification, int batchID) throws DataAccessException {
 		try {
 			update.setDouble(1, notification.getDiscount());
 			update.setString(2, notification.getNote());
@@ -66,8 +65,7 @@ public class NotificationDB implements NotificationDBIF {
 			
 		} catch (Exception e) {
 			throw new DataAccessException(null, "Kunne ikke opdatere status");
-		}
-		return notification;		
+		}	
 	}
 	
 	public Notification findByBatchFK(int batchID) throws DataAccessException {

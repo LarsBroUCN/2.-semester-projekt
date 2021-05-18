@@ -15,7 +15,7 @@ import model.Product;
 import model.Status;
 
 public class BatchDB implements BatchDBIF {
-	private static final String  FINDSTATUSQ = "select notifications.batchid_fk, notifications.status, batches.batchID, batches.arrivaldate, \r\n"
+	private static final String FINDSTATUSQ = "select notifications.batchid_fk, notifications.status, batches.batchID, batches.arrivaldate, \r\n"
 			+ "batches.warningperiod, batches.expirationdate, batches.barcode_fk from notifications\r\n"
 			+ "inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = ?";
 	private static final String SEARCH_BATCH_Q = "select * from batches where BatchID = ?";
@@ -48,32 +48,31 @@ public class BatchDB implements BatchDBIF {
 			throw new DataAccessException(e, "Kunne ikke finde data");
 		}
 	}
-	
+
 	@Override
 	public List<Batch> findAllByStatus(Status status) throws DataAccessException {
-        try {
+		try {
 
-            findAllByStatus.setString(1, status.toString());
-            ResultSet rs = findAllByStatus.executeQuery();
-            List<Batch> res = buildObjects(rs);
-            return res;
-        } catch (Exception e) {
-            throw new DataAccessException(null, "Kunne ikke finde nogle batches.");
-        }
+			findAllByStatus.setString(1, status.toString());
+			ResultSet rs = findAllByStatus.executeQuery();
+			List<Batch> res = buildObjects(rs);
+			return res;
+		} catch (Exception e) {
+			throw new DataAccessException(null, "Kunne ikke finde nogle batches.");
+		}
 	}
-	
+
 	@Override
 	public List<Batch> findAllNotNotification() throws DataAccessException {
-        try {            
-            ResultSet rs = findAllNotNotification.executeQuery();
-            List<Batch> res = buildObjects(rs);
-            return res;
-        } catch (Exception e) {
-            throw new DataAccessException(null, "Kunne ikke finde nogle batches.");
-        }
+		try {
+			ResultSet rs = findAllNotNotification.executeQuery();
+			List<Batch> res = buildObjects(rs);
+			return res;
+		} catch (Exception e) {
+			throw new DataAccessException(null, "Kunne ikke finde nogle batches.");
+		}
 	}
-	   
-	   
+
 	@Override
 	public void updateBatch(Batch batch) throws DataAccessException {
 		try {
@@ -84,19 +83,21 @@ public class BatchDB implements BatchDBIF {
 			updateBatch.setInt(5, batch.getBatchID());
 			updateBatch.execute();
 			Notification notification = batch.getNotification();
-			
-			if(notification.get)
-			ndb.updateNotification(notification, batch.getBatchID());
-		
+
+			if (notification.getNotificationID() != -1) {
+				ndb.updateNotification(notification, batch.getBatchID());
+			} else {
+				ndb.insertNotification(notification, batch.getBatchID());
+			}
+
 		} catch (Exception e) {
 			throw new DataAccessException(e, "Kunne ikke opdatere batchen");
 		}
 	}
-	
-	
-	private List<Batch> buildObjects(ResultSet rs) throws SQLException, DataAccessException {	
-		List<Batch> res = new ArrayList<>();	
-		while(rs.next()) {
+
+	private List<Batch> buildObjects(ResultSet rs) throws SQLException, DataAccessException {
+		List<Batch> res = new ArrayList<>();
+		while (rs.next()) {
 			res.add(buildObject(rs));
 		}
 		return res;
@@ -110,13 +111,12 @@ public class BatchDB implements BatchDBIF {
 		b.setProduct(p);
 		Notification n = ndb.findByBatchFK(rs.getInt("batchID"));
 		b.setNotification(n);
-	
+
 		return b;
 	}
 
+}
 
-	       }
-	
 //	@Override
 //	public boolean checkIfNotificationExist() throws DataAccessException {
 //		// TODO Auto-generated method stub

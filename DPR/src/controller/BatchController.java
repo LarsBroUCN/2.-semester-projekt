@@ -53,7 +53,7 @@ public class BatchController {
 				LocalDate today = LocalDate.now(); // get the time
 				LocalDate date = batch.getExpirationDate().minusDays(batch.getWarningPeriod());
 				if (today.isAfter(date)) { // check if its time to create a notification
-					Notification n = new Notification(null, 5, Status.PENDING); // create a notification with pending																				
+					Notification n = new Notification(-1, null, 5, Status.PENDING); // create a notification with pending																				
 					batch.setNotification(n);					
 					notificationDB.insertNotification(n, batch.getBatchID()); //creates a new notification in DB					
 				}
