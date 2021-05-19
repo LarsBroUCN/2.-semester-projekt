@@ -14,7 +14,7 @@ public class Batch_UnitTest {
 
 	@Before
 	public void setUp() {
-		b = new Batch(-1, null, -1, null, null, null);
+		b = new Batch(-1, null, 10, null, null, null);
 	}
 	
 	// Might remove this test
@@ -26,7 +26,7 @@ public class Batch_UnitTest {
 	@Test
 	public void getWarningPeriodTest() {
 		int i = b.getWarningPeriod();
-		assertEquals(-1, i);
+		assertEquals(10, i);
 	}
 	
 	@Test
