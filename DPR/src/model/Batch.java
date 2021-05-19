@@ -64,7 +64,6 @@ public class Batch {
 	}
 	
 	
-
 	public Product getProduct() {
 		return product;
 	}
