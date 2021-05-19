@@ -18,12 +18,12 @@ import db.DataAccessException;
 import model.Batch;
 import model.Status;
 
-class BatchCtrl_UnitTest {
+class BatchCtrl_IntTest {
 
 	BatchController bc;
 	BatchDBIF bdb;
 
-	public BatchCtrl_UnitTest() throws DataAccessException, SQLException {
+	public BatchCtrl_IntTest() throws DataAccessException, SQLException {
 		bc = new BatchController();
 		bdb = new BatchDB();
 	}

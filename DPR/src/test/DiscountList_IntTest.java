@@ -15,7 +15,7 @@ import db.DataAccessException;
 import model.Batch;
 import model.Status;
 
-class DiscountList_UnitTest {
+class DiscountList_IntTest {
 	DiscountListController dlc;
 
 	@BeforeEach

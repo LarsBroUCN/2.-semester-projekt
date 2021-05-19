@@ -10,18 +10,17 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import controller.ExpiredListController;
+import controller.PendingListController;
 import db.DataAccessException;
 import model.Batch;
 import model.Status;
 
-class ExpiredList_UnitTest {
+class PendingList__IntTest {
+	PendingListController plc;
 
-	ExpiredListController elc;
-	
 	@BeforeEach
 	public void setup() throws DataAccessException, SQLException {
-		elc = new ExpiredListController();
+		plc = new PendingListController();
 	}
 
 	@Test
@@ -29,18 +28,17 @@ class ExpiredList_UnitTest {
 		//Arrange
 		List<Batch> nl = new ArrayList<>();
 		//Act
-		nl = elc.generateExpiredList();
+		nl = plc.generatePendingList();
 		//Assert
-		assertTrue("Should contain objects", nl.size() > 0);
+		assertTrue("Should contain objects", nl.size() > 0);;
 	}
 	
 	@Test
-	void checkIfStatusIsExpired() throws Exception {
+	void checkIfStatusIsPending() throws Exception {
 		List<Batch> nl = new ArrayList<>();
 		//Act
-		nl = elc.generateExpiredList();
+		nl = plc.generatePendingList();
 		
-		assertTrue(nl.get(0).getNotification().getStatus() == Status.EXPIRED);
+		assertTrue(nl.get(0).getNotification().getStatus() == Status.PENDING);
 	}
-
 }
