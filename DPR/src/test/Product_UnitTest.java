@@ -16,11 +16,6 @@ public class Product_UnitTest {
 		p = new Product("Something", "123456789", 100.0, 5, null);
 	}
 
-	// Might remove
-	@Test
-	public void objectExistTest() {
-		assertNotNull(p);
-	}
 	
 	@Test
 	public void getProductNameTest() {

@@ -17,11 +17,6 @@ public class Batch_UnitTest {
 		b = new Batch(-1, null, 10, null, null, null);
 	}
 	
-	// Might remove this test
-	@Test
-	public void objectExistTest() {
-		assertNotNull("Should not be equal to null", b);;
-	}
 	
 	@Test
 	public void getWarningPeriodTest() {

@@ -16,12 +16,6 @@ public class ProductGroup_UnitTest {
 		pg = new ProductGroup("some name", 10);
 	}
 
-	// Might remove
-	@Test
-	public void objectExistTest() {
-		assertNotNull(pg);
-	}
-
 	@Test
 	public void getProductGroupNameTest() {
 		String name = pg.getGroupName();

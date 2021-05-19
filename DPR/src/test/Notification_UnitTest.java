@@ -16,12 +16,7 @@ public class Notification_UnitTest {
 	public void setUp() {
 		n = new Notification(-1, "some data", 14.0, null);
 	}
-	
-	// Might remove
-	@Test
-	public void objectExistTest() {
-		assertNotNull(n);
-	}
+
 	
 	@Test
 	public void getNoteStringTest() {
