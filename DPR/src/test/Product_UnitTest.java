@@ -29,6 +29,12 @@ public class Product_UnitTest {
 		p.setProductName(newName);
 		assertEquals(newName, p.getProductName());
 	}
+	
+	@Test
+	public void getBarcodeTest() {
+		String s = p.getBarcode();
+		assertEquals("123456789", s);
+	}
 		
 	@Test
 	public void getPriceTest() {

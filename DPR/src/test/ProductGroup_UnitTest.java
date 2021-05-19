@@ -16,6 +16,11 @@ public class ProductGroup_UnitTest {
 		pg = new ProductGroup("some name", 10);
 	}
 
+	@Test
+	public void getProductGroupNameTest() {
+		String name = pg.getGroupName();
+		assertEquals("some name", name);
+	}
 
 	@Test
 	public void getGroupWarningPeriod() {
