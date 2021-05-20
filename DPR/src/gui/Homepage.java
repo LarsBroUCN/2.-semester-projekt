@@ -26,6 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.TableRowSorter;
@@ -453,18 +454,20 @@ public class Homepage extends JFrame {
 
 	private void notifyGenerateListUpdate() {
 
-		try {
-			String time = glc.getLastGenerateListUpdateTime();
-			lblStatus.setText("sandt");
-			if (time != null) {
-				lblTimeOfEdit.setText(time);
-			} else {
-				lblTimeOfEdit.setText("ingen");
+		SwingUtilities.invokeLater(() -> {
+			try {
+				String time = glc.getLastGenerateListUpdateTime();
+				lblStatus.setText("sandt");
+				if (time != null) {
+					lblTimeOfEdit.setText(time);
+				} else {
+					lblTimeOfEdit.setText("ingen");
+				}
+			} catch (Exception e) {
+				// Change online to false
+				lblStatus.setText("falsk");
 			}
-		} catch (Exception e) {
-			// Change online to false
-			lblStatus.setText("falsk");
-		}
+		});
 
 	}
 
