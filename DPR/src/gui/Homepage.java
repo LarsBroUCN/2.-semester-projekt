@@ -270,6 +270,10 @@ public class Homepage extends JFrame {
 		panel_3.add(lblCurrUser, gbc_lblCurrUser);
 
 		JButton btnLogOut = new JButton("Log ud");
+		btnLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		GridBagConstraints gbc_btnLogOut = new GridBagConstraints();
 		gbc_btnLogOut.insets = new Insets(0, 0, 5, 0);
 		gbc_btnLogOut.gridx = 6;
