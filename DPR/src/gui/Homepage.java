@@ -33,6 +33,7 @@ import javax.swing.table.TableRowSorter;
 
 import controller.GenerateListController;
 import model.Batch;
+import javax.swing.JProgressBar;
 
 public class Homepage extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -47,6 +48,7 @@ public class Homepage extends JFrame {
 	private TableRowSorter<BatchTableModel> sorter;
 	private JLabel lblTimeOfEdit;
 	private JLabel lblStatus;
+	private JProgressBar progressBar;
 
 	/**
 	 * Launch the application.
@@ -57,7 +59,7 @@ public class Homepage extends JFrame {
 				try {
 					frame = new Homepage();
 					frame.setVisible(true);
-					frame.setMinimumSize(new Dimension(1000,500));
+					frame.setMinimumSize(new Dimension(1000, 500));
 					frame.setPreferredSize(new Dimension(1000, 600));
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -123,7 +125,7 @@ public class Homepage extends JFrame {
 		gbc_horizontalStrut_1.gridy = 2;
 		panel.add(horizontalStrut_1, gbc_horizontalStrut_1);
 
-		JButton btnProduct = new JButton("Produkt");		
+		JButton btnProduct = new JButton("Produkt");
 
 		GridBagConstraints gbc_btnProduct = new GridBagConstraints();
 		gbc_btnProduct.fill = GridBagConstraints.HORIZONTAL;
@@ -247,8 +249,8 @@ public class Homepage extends JFrame {
 				}
 			}
 		});
-		comboBox.setModel(
-				new DefaultComboBoxModel<String>(new String[] {"Samlet liste", "Rabat", "Udløbet", "Advarsels Periode"}));
+		comboBox.setModel(new DefaultComboBoxModel<String>(
+				new String[] { "Samlet liste", "Rabat", "Udløbet", "Advarsels Periode" }));
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -293,9 +295,9 @@ public class Homepage extends JFrame {
 		JPanel panel_4 = new JPanel();
 		panel_2.add(panel_4, BorderLayout.SOUTH);
 		GridBagLayout gbl_panel_4 = new GridBagLayout();
-		gbl_panel_4.columnWidths = new int[] { 0, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_panel_4.columnWidths = new int[] { 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		gbl_panel_4.rowHeights = new int[] { 0, 0, 0 };
-		gbl_panel_4.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+		gbl_panel_4.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
 		gbl_panel_4.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
 		panel_4.setLayout(gbl_panel_4);
@@ -310,7 +312,7 @@ public class Homepage extends JFrame {
 		JButton btnGenerate = new JButton("Generere Liste");
 		btnGenerate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				generateLists();
+				new BackgroundWorker(progressBar, frame).execute();;
 			}
 		});
 		GridBagConstraints gbc_btnGenerate = new GridBagConstraints();
@@ -318,24 +320,33 @@ public class Homepage extends JFrame {
 		gbc_btnGenerate.gridx = 0;
 		gbc_btnGenerate.gridy = 1;
 		panel_4.add(btnGenerate, gbc_btnGenerate);
+		
+		progressBar = new JProgressBar();
+		progressBar.setVisible(false);
+		GridBagConstraints gbc_progressBar = new GridBagConstraints();
+		gbc_progressBar.gridwidth = 3;
+		gbc_progressBar.insets = new Insets(0, 0, 0, 5);
+		gbc_progressBar.gridx = 1;
+		gbc_progressBar.gridy = 1;
+		panel_4.add(progressBar, gbc_progressBar);
 
 		JButton btnArchive = new JButton("Arkivere");
 		GridBagConstraints gbc_btnArchive = new GridBagConstraints();
 		gbc_btnArchive.insets = new Insets(0, 0, 0, 5);
-		gbc_btnArchive.gridx = 11;
+		gbc_btnArchive.gridx = 12;
 		gbc_btnArchive.gridy = 1;
 		panel_4.add(btnArchive, gbc_btnArchive);
 
 		JButton btnDiscount = new JButton("S\u00E6t discount");
 		GridBagConstraints gbc_btnDiscount = new GridBagConstraints();
 		gbc_btnDiscount.insets = new Insets(0, 0, 0, 5);
-		gbc_btnDiscount.gridx = 12;
+		gbc_btnDiscount.gridx = 13;
 		gbc_btnDiscount.gridy = 1;
 		panel_4.add(btnDiscount, gbc_btnDiscount);
 
 		JButton btnPrint = new JButton("Udskriv");
 		GridBagConstraints gbc_btnPrint = new GridBagConstraints();
-		gbc_btnPrint.gridx = 13;
+		gbc_btnPrint.gridx = 14;
 		gbc_btnPrint.gridy = 1;
 		panel_4.add(btnPrint, gbc_btnPrint);
 
@@ -417,7 +428,7 @@ public class Homepage extends JFrame {
 
 	}
 
-	private void generateLists() {
+	protected void generateLists() {
 
 		try {
 			glc.generateList();
@@ -426,6 +437,7 @@ public class Homepage extends JFrame {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Batch list could not be generated");
 		}
+
 	}
 
 	private void rowSorting() {
@@ -441,29 +453,33 @@ public class Homepage extends JFrame {
 			res = "PENDING";
 			break;
 		default:
-			res = "";
+			break;
 		}
 
 		RowFilter<BatchTableModel, Object> rf = RowFilter.regexFilter(res, 2);
-		sorter.setRowFilter(rf);		
+		sorter.setRowFilter(rf);
 	}
 
 	private void notifyGenerateListUpdate() {
 
-		SwingUtilities.invokeLater(() -> {
-			try {
-				String time = glc.getLastGenerateListUpdateTime();
+		try {
+			String time = glc.getLastGenerateListUpdateTime();
+			
+			SwingUtilities.invokeLater(() -> {
 				lblStatus.setText("sandt");
 				if (time != null) {
 					lblTimeOfEdit.setText(time);
 				} else {
 					lblTimeOfEdit.setText("ingen");
 				}
-			} catch (Exception e) {
-				// Change online to false
+			});
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			SwingUtilities.invokeLater(() -> {
 				lblStatus.setText("falsk");
-			}
-		});
+			});
+		}
 
 	}
 

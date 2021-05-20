@@ -48,7 +48,7 @@ public class BatchDB implements BatchDBIF {
 	}
 
 	@Override
-	public List<Batch> findAllByStatus(Status status) throws DataAccessException {
+	public synchronized List<Batch> findAllByStatus(Status status) throws DataAccessException {
 		try {
 
 			findAllByStatus.setString(1, status.toString());
