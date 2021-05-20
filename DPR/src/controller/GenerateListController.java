@@ -65,6 +65,7 @@ public class GenerateListController {
 			
 			boolean resBool = true; 
 			
+			
 			// Compare the lists
 			if(resList.size() == batchList.size()) {
 				for (int i = 0; i < resList.size() && resBool == true; i++) {
@@ -75,7 +76,7 @@ public class GenerateListController {
 			} else {
 				resBool = false;
 			}
-			
+
 			// If list is new then get the current time
 			if(!resBool) {
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
