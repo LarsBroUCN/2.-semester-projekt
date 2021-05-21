@@ -125,7 +125,7 @@ public class Homepage extends JFrame {
 		gbc_horizontalStrut_1.gridy = 2;
 		panel.add(horizontalStrut_1, gbc_horizontalStrut_1);
 
-		JButton btnProduct = new JButton("Produkt");
+		JButton btnProduct = new JButton("Produkt");		
 
 		GridBagConstraints gbc_btnProduct = new GridBagConstraints();
 		gbc_btnProduct.fill = GridBagConstraints.HORIZONTAL;

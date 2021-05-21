@@ -30,12 +30,12 @@ public class BatchTableModel extends DefaultTableModel {
 		super.fireTableDataChanged();
 	}
 	
-	public List<Integer> getSelectedIndexes() {
+	public List<Integer> getSelectedIdentities() {
 		List<Integer> res = new ArrayList<>();
 		
 		for(int i = 0; i < selection.size(); i++) {
 			if(selection.get(i)) {
-				res.add(i);
+				res.add(data.get(i).getBatchID());
 			}
 		}
 		
