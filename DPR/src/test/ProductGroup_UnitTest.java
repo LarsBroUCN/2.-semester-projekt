@@ -18,20 +18,37 @@ public class ProductGroup_UnitTest {
 
 	@Test
 	public void getProductGroupNameTest() {
-		String name = pg.getGroupName();
+		// Arrange
+		String name = null;
+		
+		// Act
+		name = pg.getGroupName();
+		
+		// Assert
 		assertEquals("some name", name);
 	}
 
 	@Test
 	public void getGroupWarningPeriod() {
-		int i = pg.getGroupWarningPeriod();
+		// Arrange
+		int i = -1;
+		
+		// Act
+		i = pg.getGroupWarningPeriod();
+		
+		// Assert
 		assertEquals(10, i);
 	}
 
 	@Test
 	public void setGroupWarningPeriod() {
+		// Arrange
 		int newInt = 1;
+		
+		// Act
 		pg.setGroupWarningPeriod(newInt);
+		
+		// Assert
 		assertEquals(newInt, pg.getGroupWarningPeriod());
 	}
 

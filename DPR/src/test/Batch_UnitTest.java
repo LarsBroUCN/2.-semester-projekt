@@ -20,14 +20,26 @@ public class Batch_UnitTest {
 	
 	@Test
 	public void getWarningPeriodTest() {
-		int i = b.getWarningPeriod();
+		// Arrange
+		int i = -1;
+		
+		// Act
+		i = b.getWarningPeriod();
+		
+		// Assert
 		assertEquals(10, i);
 	}
 	
 	@Test
 	public void setWarningPeriodTest() {
-		b.setWarningPeriod(1);
-		assertEquals(1, b.getWarningPeriod());
+		// Arrange
+		int i = 1;
+		
+		// Act
+		b.setWarningPeriod(i);
+		
+		// Assert
+		assertEquals(i, b.getWarningPeriod());
 	}
 
 }

@@ -2,7 +2,7 @@ use dmab0920_1086231
 
 
 
-  create table Productgroups(
+create table Productgroups(
     groupname varchar(64) primary key,
     groupWarningPeriod int    
  )
@@ -31,7 +31,7 @@ use dmab0920_1086231
 	discount float,
 	note varchar(300),
 	status varchar(200) not null check(status IN ('Pending','Discount','Expired','Discard','Complete')),
-	batchID_fk int not null,
+	batchID_fk int unique not null,
 	foreign key (batchID_fk) references Batches(batchID) 
  )
 
