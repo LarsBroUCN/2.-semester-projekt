@@ -4,11 +4,11 @@ use dmab0920_1086231
 
 create table Productgroups(
     groupname varchar(64) primary key,
-    groupWarningPeriod int    
+    groupWarningPeriod int  
  )
 
  create table Products (
-     barcode varchar(64) primary key,
+     barcode varchar(64)  primary key,
      productName varchar(64) not null,
      productWarningperiod int,
      price float not null,
@@ -30,7 +30,7 @@ create table Productgroups(
 	notificationID int primary key identity(1,1),
 	discount float,
 	note varchar(300),
-	status varchar(200) not null check(status IN ('Pending','Discount','Expired','Discard','Complete')),
+	status varchar(200) not null check(status IN ('PENDING','DISCOUNT','EXPIRED','DISCARD','COMPLETE')),
 	batchID_fk int unique not null,
 	foreign key (batchID_fk) references Batches(batchID) 
  )
