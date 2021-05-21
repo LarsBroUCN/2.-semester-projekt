@@ -316,7 +316,7 @@ public class Homepage extends JFrame {
 		JButton btnGenerate = new JButton("Generere Liste");
 		btnGenerate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new BackgroundWorker(progressBar, frame).execute();;
+				new BackgroundWorker(progressBar, frame).execute();
 			}
 		});
 		GridBagConstraints gbc_btnGenerate = new GridBagConstraints();
@@ -453,7 +453,7 @@ public class Homepage extends JFrame {
 		case "Udløbet":
 			res = "EXPIRED";
 			break;
-		case "AdvarselsPeriode":
+		case "Advarsels Periode":
 			res = "PENDING";
 			break;
 		default:
