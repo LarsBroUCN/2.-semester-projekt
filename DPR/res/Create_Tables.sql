@@ -31,7 +31,7 @@ use dmab0920_1086231
 	discount float,
 	note varchar(300),
 	status varchar(200) not null check(status IN ('Pending','Discount','Expired','Discard','Complete')),
-	batchID_fk int not null,
+	batchID_fk int unique not null,
 	foreign key (batchID_fk) references Batches(batchID) 
  )
 
@@ -42,21 +42,21 @@ use dmab0920_1086231
 
  
  create table Salespot(
-	locationID int primary key,
+	locationID int primary key identity(1,1),
 	nodename_fk varchar(200) not null,
 	foreign key (nodename_fk) references Nodes(nodeName) 
  )
 
  create table BatchSaleSpot(
-	locationID_fk int not null,
-	batchID_fk int not null,
+	locationID_fk int unique not null,
+	batchID_fk int unique not null,
 	primary key (locationID_fk,	batchID_fk),
 	foreign key (locationID_fk) references Salespot(locationID), 
 	foreign key (batchID_fk) references Batches(batchID) 
  )
 
  create table Edges(
-	distance int primary key,
+	distance float primary key,
 	nodename1_fk varchar(200) not null,
 	nodename2_fk varchar(200) not null,
 	foreign key (nodename1_fk) references Nodes(nodeName),
