@@ -30,11 +30,7 @@ create table Productgroups(
 	notificationID int primary key identity(1,1),
 	discount float,
 	note varchar(300),
-<<<<<<< HEAD
-	status varchar(200) not null check(status IN ('Pending','Discount','Expired','Discard','Complete')),
-=======
 	status varchar(200) not null check(status IN ('PENDING','DISCOUNT','EXPIRED','DISCARD','COMPLETE')),
->>>>>>> c6bd0a4a945583b43a78a6786a5537e60f30f81a
 	batchID_fk int unique not null,
 	foreign key (batchID_fk) references Batches(batchID) 
  )
