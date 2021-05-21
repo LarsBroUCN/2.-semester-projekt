@@ -453,7 +453,7 @@ public class Homepage extends JFrame {
 		case "Udløbet":
 			res = "EXPIRED";
 			break;
-		case "AdvarselsPeriode":
+		case "Advarsels Periode":
 			res = "PENDING";
 			break;
 		default:
