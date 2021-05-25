@@ -29,6 +29,16 @@ public class BatchController {
 	}
 	
 
+	/**
+	* The method runs getPDList() to 
+	* get a list of batches with notification status PENDING and DISCOUNT.
+	* Then it checks any of those notification should have status EXPIRED.
+	* Last but not least the method finds all batches with a notification that has status EXPIRED to return.
+	* <p>
+	* If a status is changed to EXPIRED, then the batch will be updated in the database.
+	*
+	* @return      returns a list of batches with notification status EXPIRED
+	*/
 	public List<Batch> generateExpiredList() throws Exception {
 		List<Batch> res = new ArrayList<>();
 		LocalDate date = LocalDate.now(); // get time
@@ -46,6 +56,15 @@ public class BatchController {
 		return res;
 	}
 
+	/**
+	* The method first gets a list of batches with no notifications. 
+	* Then if its reach the time where the batch should have a notification, it creates one.
+	* Last but not least the method finds all batches with a notification that has status PENDING to return.
+	* <p>
+	* If a new notification is created, then the batch will be updated in the database.
+	*
+	* @return      returns a list of batches with notification status PENDING
+	*/
 	public List<Batch> generatePendingList() throws Exception {
 		List<Batch> res = new ArrayList<>(); // local arraylist
 		List<Batch> batchList = batchDB.findAllNotNotification(); // get batches with no notifications		
@@ -56,7 +75,7 @@ public class BatchController {
 				if (today.isAfter(date)) { // check if its time to create a notification
 					Notification n = new Notification(-1, null, 5, Status.PENDING); // create a notification with pending																				
 					batch.setNotification(n);					
-					notificationDB.insertNotification(n, batch.getBatchID()); //creates a new notification in DB					
+					bdb.updateBatch(batch);// save batch the new notification in DB					
 				}
 			} else {
 				throw new Exception("Batch ID: " + batch.getBatchID() + " Ingen notifikation");
@@ -71,13 +90,20 @@ public class BatchController {
 		return batchDB.findAllByStatus(state);
 	}
 
-
+	/**
+	* This method finds and combines two lists of batches, 
+	* one list with notification status PENDING 
+	* and the other with notification status DISCOUNT.
+	*
+	* @return      returns a list of batches with notification status PENDING and DISCOUNT
+	*/
 	public List<Batch> getPDList() throws DataAccessException{
 		List<Batch> pd = new ArrayList<>();
 		pd.addAll(findAllByStatus(Status.PENDING));
 		pd.addAll(findAllByStatus(Status.DISCOUNT));
 		return pd;
 	}
+	
 	public List<Batch> generateDiscountList() throws DataAccessException {
 		return (findAllByStatus(Status.DISCOUNT)); // get batches with state discount
 	}
