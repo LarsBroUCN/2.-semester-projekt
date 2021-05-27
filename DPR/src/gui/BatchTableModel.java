@@ -2,9 +2,7 @@ package gui;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.table.DefaultTableModel;
-
 import model.Batch;
 
 public class BatchTableModel extends DefaultTableModel {
@@ -21,24 +19,20 @@ public class BatchTableModel extends DefaultTableModel {
 	public void setData(List<Batch> data) {
 		this.data.clear();
 		this.selection.clear();
-		
-		for(Batch b: data) {
+		for (Batch b : data) {
 			this.data.add(b);
 			this.selection.add(Boolean.FALSE);
 		}
-		
 		super.fireTableDataChanged();
 	}
-	
+
 	public List<Integer> getSelectedIdentities() {
 		List<Integer> res = new ArrayList<>();
-		
-		for(int i = 0; i < selection.size(); i++) {
-			if(selection.get(i)) {
+		for (int i = 0; i < selection.size(); i++) {
+			if (selection.get(i)) {
 				res.add(data.get(i).getBatchID());
 			}
 		}
-		
 		return res;
 	}
 
@@ -78,7 +72,7 @@ public class BatchTableModel extends DefaultTableModel {
 	public Object getValueAt(int row, int column) {
 		Batch currBatch = data.get(row);
 		Boolean selected = selection.get(row);
-		
+
 		String res = "UNDEFINED";
 		switch (column) {
 		case 0:
@@ -100,7 +94,7 @@ public class BatchTableModel extends DefaultTableModel {
 		}
 		return res;
 	}
-	
+
 	@Override
 	public void setValueAt(Object value, int row, int column) {
 		if (column == 4) {
@@ -126,5 +120,4 @@ public class BatchTableModel extends DefaultTableModel {
 			return String.class;
 		}
 	}
-
 }

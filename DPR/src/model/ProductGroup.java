@@ -3,7 +3,7 @@ package model;
 public class ProductGroup {
 	private String groupName;
 	private int groupWarningPeriod;
-	
+
 	public ProductGroup(String groupName, int groupWarningPeriod) {
 		super();
 		this.groupName = groupName;
@@ -25,6 +25,5 @@ public class ProductGroup {
 	public void setGroupWarningPeriod(int groupWarningPeriod) {
 		this.groupWarningPeriod = groupWarningPeriod;
 	}
-	
-	
+
 }

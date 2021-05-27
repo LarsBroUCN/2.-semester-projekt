@@ -3,14 +3,14 @@ package model;
 import java.time.LocalDate;
 
 public class Batch {
-	
+
 	private int batchID;
 	private LocalDate arrivalDate;
 	private int warningPeriod;
 	private LocalDate expirationDate;
 	private Product product;
 	private Notification notification;
-	
+
 	public Batch(int batchID, LocalDate arrivalDate, int warningPeriod, LocalDate expirationDate, Product product,
 			Notification notification) {
 		super();
@@ -21,16 +21,15 @@ public class Batch {
 		this.product = product;
 		this.notification = notification;
 	}
-	
+
 	public boolean hasNotification() {
-        if(notification != null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-	
-	
+		if (notification != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public int getBatchID() {
 		return batchID;
 	}
@@ -62,8 +61,7 @@ public class Batch {
 	public void setExpirationDate(LocalDate expirationDate) {
 		this.expirationDate = expirationDate;
 	}
-	
-	
+
 	public Product getProduct() {
 		return product;
 	}
@@ -79,5 +77,5 @@ public class Batch {
 	public void setNotification(Notification notification) {
 		this.notification = notification;
 	}
-	
+
 }

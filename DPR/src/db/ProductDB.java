@@ -11,8 +11,7 @@ import model.ProductGroup;
 
 public class ProductDB implements ProductDBIF{
 	private static final String FINDBARCODEQ = "select * from products where barcode =?";
-	private PreparedStatement findBarcode;
-	
+	private PreparedStatement findBarcode;	
 	
 	public ProductDB() throws SQLException {
 		findBarcode = DBConnection.getInstance().getConnection().prepareStatement(FINDBARCODEQ);
@@ -34,9 +33,7 @@ public class ProductDB implements ProductDBIF{
 	
 	}
 
-	
-
-	
+		
 	
 	private List<Product> buildObjects(ResultSet rs) throws SQLException {	
 		List<Product> res = new ArrayList<>();	

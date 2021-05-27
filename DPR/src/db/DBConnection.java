@@ -2,10 +2,7 @@ package db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class DBConnection {
 	private Connection connection = null;
@@ -39,79 +36,10 @@ public class DBConnection {
 		}
 		return dbConnection;
 	}
-	//skal fjernes ?
-	public void startTransaction() throws SQLException {
-		connection.setAutoCommit(false);
-	}
-	//skal fjernes ?
-	public void commitTransaction() throws SQLException {
-		connection.commit();
-		connection.setAutoCommit(true);
-	}
-	//skal fjernes ?
-	public void rollbackTransaction() throws SQLException {
-		connection.rollback();
-		connection.setAutoCommit(true);
-	}
-	
-	public int executeInsertWithIdentity(PreparedStatement ps) throws SQLException  {
-		int res = -1;
-		try {
-			res = ps.executeUpdate();
-			if(res > 0) {
-				ResultSet rs = ps.getGeneratedKeys();
-				rs.next();
-				res = rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw e;
-		}
-		return res;
-	}
-	
-	public int executeInsertWithIdentity(String sql) throws SQLException  {
-		System.out.println("DBConnection, Inserting: " + sql);
-		int res = -1;
-		try (Statement s = connection.createStatement()) {
-			res = s.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
-			if(res > 0) {
-				ResultSet rs = s.getGeneratedKeys();
-				rs.next();
-				res = rs.getInt(1);
-			}
-			//s.close(); -- the try block does this for us now
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw e;
-		}
-		return res;
-	}
-	
-	public int executeUpdate(String sql) throws SQLException {
-		System.out.println("DBConnection, Updating: " + sql);
-		int res = -1;
-		try (
-			Statement s = connection.createStatement()){
-			res = s.executeUpdate(sql);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw e;
-		}
-		return res;
-	}
-	
-	
+		
 	public Connection getConnection() {
 		return connection;
 	}
 	
-	public void disconnect() {
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 }

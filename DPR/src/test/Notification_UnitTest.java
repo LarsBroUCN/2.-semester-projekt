@@ -1,11 +1,8 @@
 package test;
 
 import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
-
-import model.Batch;
 import model.Notification;
 
 public class Notification_UnitTest {
@@ -43,7 +40,6 @@ public class Notification_UnitTest {
 		n.setDiscount(newD);
 		assertEquals(newD, n.getDiscount(), 0);
 	}
-	
 	
 
 }

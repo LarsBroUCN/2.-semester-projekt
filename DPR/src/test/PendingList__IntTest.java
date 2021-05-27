@@ -1,15 +1,11 @@
 package test;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import controller.PendingListController;
 import db.DataAccessException;
 import model.Batch;

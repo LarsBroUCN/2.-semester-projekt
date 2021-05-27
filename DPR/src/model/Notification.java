@@ -5,7 +5,7 @@ public class Notification {
 	private String note;
 	private double discount;
 	private Status status;
-	
+
 	public Notification(int notificationID, String note, double discount, Status status) {
 		super();
 		this.notificationID = notificationID;
@@ -45,7 +45,5 @@ public class Notification {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	
-	
-	
+
 }

@@ -6,7 +6,7 @@ public class Product {
 	private double price;
 	private int productWarningPeriod;
 	private ProductGroup productGroup;
-	
+
 	public Product(String productName, String barcode, double price, int productWarningPeriod,
 			ProductGroup productGroup) {
 		super();
@@ -56,7 +56,5 @@ public class Product {
 	public void setProductGroup(ProductGroup productGroup) {
 		this.productGroup = productGroup;
 	}
-	
-	
-	
+
 }

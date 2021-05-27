@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import model.Batch;
 import model.Notification;
 import model.Product;
@@ -18,7 +17,7 @@ public class BatchDB implements BatchDBIF {
 			+ "inner join Batches on batches.batchid = Notifications.batchID_fk where notifications.status = ?";
 	private static final String SEARCH_BATCH_Q = "select * from batches where BatchID = ?";
 	private static final String UPDATE_BATCH_Q = "update batches set arrivaldate =?, expirationdate=?, warningperiod=?, barcode_fk=? where batchID=? ";
-	private static final String FIND_ALL_NOT_NOTIFICATION = "select * from batches where batches.batchID not in (select Notifications.batchID_fk from notifications)";
+	private static final String FIND_ALL_NOT_NOTIFICATIONQ = "select * from batches where batches.batchID not in (select Notifications.batchID_fk from notifications)";
 	private PreparedStatement findAllByStatus, searchBatch, updateBatch, findAllNotNotification;
 	private NotificationDB ndb;
 	private ProductDB pdb;
@@ -27,7 +26,7 @@ public class BatchDB implements BatchDBIF {
 		findAllByStatus = DBConnection.getInstance().getConnection().prepareStatement(FINDSTATUSQ);
 		searchBatch = DBConnection.getInstance().getConnection().prepareStatement(SEARCH_BATCH_Q);
 		updateBatch = DBConnection.getInstance().getConnection().prepareStatement(UPDATE_BATCH_Q);
-		findAllNotNotification = DBConnection.getInstance().getConnection().prepareStatement(FIND_ALL_NOT_NOTIFICATION);
+		findAllNotNotification = DBConnection.getInstance().getConnection().prepareStatement(FIND_ALL_NOT_NOTIFICATIONQ);
 		ndb = new NotificationDB();
 		pdb = new ProductDB();
 	}
@@ -50,7 +49,6 @@ public class BatchDB implements BatchDBIF {
 	@Override
 	public synchronized List<Batch> findAllByStatus(Status status) throws DataAccessException {
 		try {
-
 			findAllByStatus.setString(1, status.toString());
 			ResultSet rs = findAllByStatus.executeQuery();
 			List<Batch> res = buildObjects(rs);
@@ -87,7 +85,6 @@ public class BatchDB implements BatchDBIF {
 			} else {
 				ndb.insertNotification(notification, batch.getBatchID());
 			}
-
 		} catch (Exception e) {
 			throw new DataAccessException(e, "Kunne ikke opdatere batchen");
 		}
@@ -109,32 +106,7 @@ public class BatchDB implements BatchDBIF {
 		b.setProduct(p);
 		Notification n = ndb.findByBatchFK(rs.getInt("batchID"));
 		b.setNotification(n);
-
 		return b;
 	}
 
 }
-
-//	@Override
-//	public boolean checkIfNotificationExist() throws DataAccessException {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
-//
-//	@Override
-//	public boolean checkBatchDate() throws DataAccessException {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
-//
-//	@Override
-//	public Status getNotificationState() throws DataAccessException {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public Batch getBatch() throws DataAccessException {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
